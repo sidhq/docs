@@ -1,0 +1,69 @@
+---
+title: "Query User Data"
+api: "POST https://api.sid.ai/api/v1/user/me/data/query"
+description: "The main endpoint, allowing you to query for user data."
+---
+
+### Body
+
+<ParamField body="query" type="string">
+  This is the search term that you want to query for. It can be any kind of text in natural language.
+</ParamField>
+
+<ParamField body="limit" type="number">
+  A number that indicates how many results you want to receive at most. The default is 10.
+</ParamField>
+
+### Response
+
+<ResponseField name="results" type="number">
+  Indicates whether the call was successful. 1 if successful, 0 if not.
+</ResponseField>
+
+<ResponseField name="new_user_group" type="boolean">
+  Indicates whether a new user group was created.
+</ResponseField>
+
+<ResponseField name="meta" type="object">
+
+Metadata about the query and the system that processed it.
+
+<Expandable title="Toggle object">
+
+<ResponseField name="sync_in_progress" type="boolean">
+  Indicates whether the system is currently syncing a user integration. This can be used to indicate to a user that results may be incomplete.
+</ResponseField>
+
+</Expandable>
+
+</ResponseField>
+
+<RequestExample>
+
+```bash Example Request
+curl --location --request GET 'https://api.sid.ai/api/v1/user/me/data/query' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer <token>' \
+--data-raw '{
+    "query": "What does SID do?",
+    "limit": 10
+}'
+```
+
+</RequestExample>
+
+<ResponseExample>
+
+```json Response
+{
+  "results": [
+    "",
+    ""
+  ],
+  "meta": {
+    "sync_in_progress": false,
+  }
+}
+```
+
+</ResponseExample>
