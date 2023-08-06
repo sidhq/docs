@@ -57,8 +57,12 @@
       "pages": ["start/introduction", "start/quickstart"]
     },
     {
-      "group": "Authentication Flow",
+      "group": "Authorization",
       "pages": ["auth/flow", "auth/credentials", "auth/tokens", "auth/button", "auth/revoke"]
+    },
+    {
+      "group": "Build your App",
+      "pages": ["build/query", "build/prompts"]
     },
     {
       "group": "API Documentation",
