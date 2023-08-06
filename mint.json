@@ -1,17 +1,22 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "Starter Kit",
+  "name": "Documentation",
   "logo": {
     "dark": "/logo/dark.svg",
     "light": "/logo/light.svg"
   },
+  "api": {
+    "auth": {
+      "method": "bearer"
+    }
+  },
   "favicon": "/favicon-32x32.png",
   "colors": {
-    "primary": "#FFE363",
-    "light": "#AE87FF",
-    "dark": "#0D001D",
+    "primary": "#F3E6D3",
+    "light": "#F3E6D3",
+    "dark": "#0C0C0C",
     "background": {
-      "dark": "#090014"
+      "dark": "#0C0C0C"
     },
     "anchors": {
       "from": "#FF7F57",
@@ -49,11 +54,11 @@
   "navigation": [
     {
       "group": "Get Started",
-      "pages": ["introduction", "quickstart", "development"]
+      "pages": ["start/introduction", "start/quickstart"]
     },
     {
-      "group": "Essentials",
-      "pages": ["essentials/markdown", "essentials/code", "essentials/images", "essentials/settings", "essentials/navigation"]
+      "group": "Authentication Flow",
+      "pages": ["auth/flow", "auth/credentials", "auth/button", "auth/tokens"]
     },
     {
       "group": "API Documentation",
@@ -67,8 +72,8 @@
     }
   ],
   "footerSocials": {
-    "twitter": "https://twitter.com/sidai",
-    "github": "https://github.com/mintlify",
-    "linkedin": "https://www.linkedin.com/company/mintsearch"
+    "twitter": "https://twitter.com/try_sid",
+    "github": "https://github.com/sidhq",
+    "linkedin": "https://www.linkedin.com/company/92711502"
   }
 }

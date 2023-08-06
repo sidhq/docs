@@ -1,0 +1,57 @@
+---
+title: 'Prebuilt Components'
+description: 'Use our prebuilt components to integrate SID into your application'
+---
+
+## The Button
+
+The `ConnectSidButton` is the entrypoint for your users to go through SID's authentication flow. In its initial state, where a user is not authenticated, this button will display "Continue with SID", when clicked, the user will be directed to SID's authentication page.
+
+<ConnectSidButton onDisconnect={() => console.log('Disconnected')} href={'#'} fontScale={1} height={40} isConnected={false} width={250}/>
+
+Once the user is authenticated, this button changes to a dual button, where 'Manage SID' lets the user access their Privacy Dashboard in a new tab and 'Disconnect SID' lets the user disconnect their SID account from your application. 
+
+<ConnectSidButton onDisconnect={() => console.log('Disconnected')} href={'#'} fontScale={1} height={40} isConnected={true} width={250}/>
+
+It will look like this in your code:
+
+```tsx
+import ConnectSidButton from "../components/ConnectSidButton";
+
+// ...
+
+// This function would handle the logout functionality of your application.
+const handleDisconnect = () => {
+  // Delete the refresh token from the database and revoke the associated grant.
+  console.log('Disconnected');
+}
+
+// ...
+
+<ConnectSidButton onDisconnect={handleDisconnect} href={'<provided to you by us>'} fontScale={1} height={40} isConnected={isConnectedState} width={250}/>
+
+// ...
+
+```
+
+Just replace `handleDisconnect` function with your app's disconnect logic, and you should be good to go.
+
+### Props
+
+Here are the props that the `ConnectSidButton` component accepts:
+
+- `isConnected` (boolean): Determines the state of the button based on user's authentication. If `true`, the button is split into "Manage SID" and "Disconnect SID". If `false`, the button displays "Continue with SID".
+
+- `width` (number): The width of the button in pixels.
+
+- `fontScale` (number): The scaling factor for the font size inside the button.
+
+- `height` (number): The height of the button in pixels.
+
+- `onDisconnect` (function): A callback function that will be invoked when the "Disconnect SID" button is clicked. This function should contain logic for disconnecting SID for the user from your application.
+
+- `href` (string): The URL where the user will be redirected when the "Continue with SID" button is clicked. We will provide this URL to you as part of the onboarding process.
+
+### Disconnect functionality
+
+The functionality of the Disconnect button needs to be implemented by you in the `onDisconnect` callback function. This function should delete the refresh token from your database and revoke the associated grant.
