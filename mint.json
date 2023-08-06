@@ -58,7 +58,7 @@
     },
     {
       "group": "Authentication Flow",
-      "pages": ["auth/flow", "auth/credentials", "auth/button", "auth/tokens"]
+      "pages": ["auth/flow", "auth/credentials", "auth/tokens", "auth/button", "auth/revoke"]
     },
     {
       "group": "API Documentation",
