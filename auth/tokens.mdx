@@ -2,3 +2,34 @@
 title: 'Token Types'
 description: 'Learn about the differences between access tokens, refresh tokens, and authorization codes'
 ---
+## Token Types
+
+In the authentication process, there are three main types of tokens that you will encounter: Access Tokens, Refresh Tokens, and Authorization Codes. 
+Each of these tokens serves a different purpose in the authentication flow.
+
+### Access Tokens
+
+Access tokens are the keys to the kingdom. 
+Once a user has authenticated and authorized your application, the authorization server will issue an access token. 
+This token is used to make requests to the SID API on behalf of the user. 
+Access tokens are short-lived and expire after a certain period of time.
+
+It makes sense to cache access tokens in your application, for example in a Redis cache.
+
+### Refresh Tokens
+
+Refresh tokens are used to obtain a new access token when the current access token expires. 
+Instead of forcing the user to authenticate again, the application can use the refresh token to get a new access token. 
+
+Refresh tokens are long-lived and should be stored securely by the application, for example in a database.
+
+### Authorization Codes
+
+As discussed in the section on the (authorization flow)[/auth/flow], when a user authorizes your application, 
+the authorization server will issue an authorization code and call the `redirect_uri` that you specified in the authorization request.
+You must then exchange the code for an access token and a refresh token. 
+The authorization code is only used once and is immediately expired once it has been exchanged for tokens. 
+<Warning>
+The authorization code is not the same as the access token, and should _not_ be stored in your application.
+Its only use is to immediately exchange it for tokens.
+</Warning>

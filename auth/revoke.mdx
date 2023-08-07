@@ -2,3 +2,28 @@
 title: 'Revoking Access'
 description: 'Allow your users to disconnect their SID account from your application'
 ---
+## Overview
+A user may wish to disconnect their SID account from your application, for example, if they want to use a different account.
+You can allow your users to do this by requesting the revocation of the tokens that were issued to your application.
+
+For this, the `/oauth/revoke` endpoint is used. It accepts a json body containing your application's `client_id`, `client_secret`, and the `token` to be revoked.
+The following example shows how to do this in Node.js using the [axios](https://www.npmjs.com/package/axios) library.
+
+```js
+let refreshToken = /* database query / session / etc. */;
+
+const data = {
+	client_id: process.env.SID_CLIENT_ID,
+	client_secret: process.env.SID_CLIENT_SECRET,
+	token: refreshToken,
+}
+
+await axios.post('https://auth.sid.ai/oauth/revoke', data);
+```
+<Info>
+When a token is revoked, all other tokens belonging to the same user account are also revoked.
+</Info>
+A revocation should be triggered when requested by the user, for example, by clicking a button in your application.
+Our pre-built [React component](/auth/button) can be used for this purpose.
+
+To reconnect their account, the user will have to go through the [authorization flow](/auth/flow) again.
