@@ -2,4 +2,23 @@
 title: 'Prompt Engineering'
 description: 'Learn what prompts work best with context retrieved from SID'
 ---
+## Basics
+Even though we're always doing our best to find the most relevant matches to any query,
+it can sometimes happen that the results are not exactly what you're looking for.
 
+If you simply feed all results into the model along with the user's query,
+the model may have a hard time discerning what is relevant from what isn't,
+and will oftentimes try to incorporate the irrelevant results into the generated text.
+
+For this reason, it is important to specify in your prompt that only results
+that are clearly relevant to the user's query should be used in the generated text,
+and that other results can be safely ignored.
+
+## Example
+In our [demo](https://demo.sid.ai), we append the following prompt to the user's query,
+along with the results returned by SID:
+```
+The following results might help you answer the next user query
+```
+Importantly, the prompt specifies that the results only *might* be relevant to the query,
+and that they not necessarily are.
