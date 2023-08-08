@@ -1,17 +1,17 @@
 ---
 title: "Query"
 api: "POST https://api.sid.ai/api/v1/users/me/data/query"
-description: "Query for data in the user's connected integrations."
+description: "Query for text in the user's connected integrations."
 ---
 
 ### Body
 
-<ParamField body="query" type="string">
-  This is the search term that you want to query for. It can be any kind of text.
+<ParamField body="query" type="string" required>
+  This is the search term that you want to query for. It can be any kind of text, such as a question, a phrase, or a sentence.
 </ParamField>
 
-<ParamField body="limit" type="number">
-  A number that indicates how many results you want to receive at most. The default is 10.
+<ParamField body="limit" type="number" default={10}>
+  A number that indicates how many results you want to receive at most.
 </ParamField>
 
 ### Response

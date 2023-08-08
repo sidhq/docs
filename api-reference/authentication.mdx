@@ -8,5 +8,7 @@ After [obtaining an access token](/auth/flow), you can authenticate with the API
 Authorization: Bearer <access_token>
 ```
 
+<Warning>
 Make sure that you are using the _access token_ for API operations, not the _refresh token_. 
 The function of the refresh token is only to obtain new access tokens and to revoke access entirely.
+</Warning>
