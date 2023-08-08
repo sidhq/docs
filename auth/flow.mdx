@@ -97,12 +97,19 @@ function tokenExchange(code: string) {
   }
 }
 ```
+Once you have the access token, you can use it to make requests to the SID API on behalf of the user.
+
+<Info>
+The access token is valid for 24 hours. After this time, you will need to [use the refresh token](/auth/tokens) to get a new access token.
+</Info>
+
+## Using the Refresh Token
 
 <CardGroup cols={2}>
   <Card
     title="Access the API"
     icon="rocket"
-    href="/api-usage/request"
+    href="/build/query"
   >
     Use the access token to make your first request to the SID API
   </Card>
@@ -111,6 +118,6 @@ function tokenExchange(code: string) {
     icon="key"
     href="/auth/tokens"
   >
-    Learn more about the different tokens and how to handle them
+    Learn more about the different tokens and how to handle them correctly
   </Card>
 </CardGroup>

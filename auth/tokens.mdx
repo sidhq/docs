@@ -18,6 +18,21 @@ It makes sense to cache access tokens in your application, for example in a Redi
 ### Refresh Tokens
 Refresh tokens are used to obtain a new access token when the current access token expires. 
 Instead of forcing the user to authenticate again, the application can use the refresh token to get a new access token. 
+
+The below example shows how to use a refresh token to obtain a new access token, using Node.js.
+```js
+let refreshToken = /* database query */;
+
+const data = {
+    grant_type: 'refresh_token',
+    client_id: process.env.SID_CLIENT_ID,
+    client_secret: process.env.SID_CLIENT_SECRET,
+    redirect_uri: process.env.SID_REDIRECT_URL,
+    refresh_token: refreshToken,
+};
+const response = await axios.post('https://auth.sid.ai/oauth/token', data);
+const { access_token } = response.data;
+```
 <Info>
 Refresh tokens are long-lived and should be stored securely, for example in a database.
 </Info>
