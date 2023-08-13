@@ -43,21 +43,49 @@ The authorization URL will redirect the user to the SID dashboard, where they wi
 Once they have done so, they will be redirected back to your application with an authorization code. You will need to provide a callback URL to receive this code.
 
 For example, if your application is hosted at `https://example.com`, you could specify a callback URL of `https://example.com/callback`. 
-You should then handle incoming `POST` requests to this URL to receive the authorization code.
-Continuing with the example, a possible callback would be a `POST` request to `https://example.com/callback?code=mycoolcode`.
-The following code snippet shows an example a callback handler written in Next.js which extracts the authorization code.
+You should then handle incoming `GET` requests to this URL to receive the authorization code.
+Continuing with the example, a possible callback would be a `GET` request to `https://example.com/callback?code=mycoolcode`.
+The following code snippet shows example callback handlers in a few different languages and frameworks.
 
-```js
+<CodeGroup>
+
+```typescript Next.js
 import { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   // get authorization code from query string
   let code = req.query.code;
+  // perform token exchange to get access token and refresh token
+  let { accessToken, refreshToken } = await tokenExchange(code);
+  // save refresh token to database and update user's authentication state
+  // ...
+```
 
-  // ... do something with it
+```typescript Next.js (app router)
+export async function GET(request: Request) {
+  // get authorization code from query string
+  let code = request.query.get('code');
+  // perform token exchange to get access token and refresh token
+  let { accessToken, refreshToken } = await tokenExchange(code);
+  // save refresh token to database and update user's authentication state
+  // ...
 }
+```
+
+```python Python (FastAPI)
+app = FastAPI()
+
+@app.get("/sid/callback")
+async def read_root(request: Request):
+    code = request.query_params.get('code')
+    # perform token exchange to get access token and refresh token
+    accessToken, refreshToken = await token_exchange(code)
+    # save refresh token to database and update user's authentication state
+    # ...
 
 ```
+</CodeGroup>
+
 Of course, you can implement this in any language or framework you like.
 
 ## Token Exchange
@@ -65,10 +93,11 @@ Once you have the authorization code, you can exchange it for an access token an
 You can do this with a simple `POST` request to the SID token endpoint, with the authorization code, client ID, and client secret.
 The below code snippet shows an example of how to do this in Node.js using the [axios](https://www.npmjs.com/package/axios) library.
 
-```js
+<CodeGroup>
+```typescript Node.js
 import axios from 'axios';
 
-function tokenExchange(code: string) {
+async function tokenExchange(code: string) {
 // construct data to send to SID
   const data = {
     grant_type: 'authorization_code',
@@ -97,6 +126,35 @@ function tokenExchange(code: string) {
   }
 }
 ```
+```python Python
+import os
+import httpx
+
+async def token_exchange(code: str):
+    # construct data to send to SID
+    data = {
+        'grant_type': 'authorization_code',
+        'client_id': os.environ.get('SID_CLIENT_ID'),
+        'client_secret': os.environ.get('SID_CLIENT_SECRET'),
+        'redirect_uri': os.environ.get('SID_REDIRECT_URI'),
+        'code': code,
+    }
+
+    # send request to SID token endpoint
+    async with httpx.AsyncClient() as client:
+        response = await client.post('https://auth.sid.ai/oauth/token', data=data)
+
+    # extract tokens from response
+    access_token = response.json().get('access_token')
+    refresh_token = response.json().get('refresh_token')
+
+    return {
+        'refresh_token': refresh_token,
+        'access_token': access_token,
+    }
+```
+</CodeGroup>
+
 Once you have the access token, you can use it to make requests to the SID API on behalf of the user.
 
 <Info>
