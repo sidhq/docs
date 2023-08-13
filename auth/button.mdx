@@ -5,7 +5,7 @@ description: 'Use our prebuilt components to make it easy for users to connect t
 
 ## The Button
 
-The `ConnectSidButton` is the entrypoint for your users to go through SID's authentication flow. 
+The `SIDButton` is the entrypoint for your users to go through SID's authentication flow. 
 In its initial state, where a user is not authenticated, this button will display 'Continue with SID'.
 When clicked, the user will be directed to their SID account and asked to authorize your application.
 
@@ -98,14 +98,23 @@ where 'Manage SID' lets the user manage their connected integrations in a new ta
 In your code, you can use the `ConnectSidButton` component as follows:
 
 ```tsx
-import ConnectSidButton from "sid";
+import SIDButton from "@sid-hq/sid";
+
+// this state should be initialized based on server-side state:
+// - if the user has an associated refresh token, set it to true
+// - otherwise, set it to false
+const [isConnectedState, setIsConnectedState] = useState(false);
 
 const handleDisconnect = () => {
-  // Revoke and delete the refresh token from your database.
+  // Revoke and delete the refresh token from your database here.
+  // ...
+  //
   console.log('Disconnected');
+  setIsConnectedState(false);
 }
 
-<ConnectSidButton 
+
+<SIDButton 
   onDisconnect={handleDisconnect} 
   href={process.env.SID_AUTHORIZATION_URL} 
   fontScale={1} 
