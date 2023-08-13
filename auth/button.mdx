@@ -128,7 +128,9 @@ You can find more information on the disconnecting users in the section on [revo
 
 ### Props
 <ResponseField name="isConnected" type="boolean">
-  Determines the state of the button based on user's authentication. If `true`, the button is split into "Manage SID" and "Disconnect SID". If `false`, the button displays "Continue with SID".
+  Determines the state of the button based on user's authentication. 
+  If `true`, the button is split into "Manage SID" and "Disconnect SID". 
+  If `false`, the button displays "Continue with SID".
 </ResponseField>
 <ResponseField name="width" type="boolean">
   The width of the button in pixels.
@@ -140,8 +142,11 @@ You can find more information on the disconnecting users in the section on [revo
   The height of the button in pixels.
 </ResponseField>
 <ResponseField name="onDisconnect" type="function">
-  A callback function that will be invoked when the "Disconnect SID" button is clicked. This function should contain logic for disconnecting SID for the user from your application.
+  A callback function that will be invoked when the "Disconnect SID" button is clicked.
+  This function should contain logic for disconnecting SID for the user from your application.
+  See the section on [revoking tokens](/auth/revoke) for more information.
 </ResponseField>
 <ResponseField name="href" type="string">
-  The URL where the user will be redirected when the "Continue with SID" button is clicked. We will provide this URL to you as part of the onboarding process.
+  The URL where the user will be redirected when the "Continue with SID" button is clicked.
+  This should be one of the authorization URLs provided to you in your client credentials.
 </ResponseField>
