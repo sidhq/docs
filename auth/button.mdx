@@ -98,7 +98,7 @@ where 'Manage SID' lets the user manage their connected integrations in a new ta
 In your code, you can use the `ConnectSidButton` component as follows:
 
 ```tsx
-import SIDButton from "@sid-hq/sid";
+import { SIDButton } from "@sid-hq/sid";
 
 // this should be initialized based on server-side state:
 // - if the user has an associated refresh token, set it to true
@@ -108,9 +108,9 @@ const [isConnectedState, setIsConnectedState] = useState(false);
 const handleDisconnect = () => {
   // Revoke and delete the refresh token from your database here.
   // ...
-  //
   console.log('Disconnected');
   setIsConnectedState(false);
+  await db.deleteRefreshToken(session.userId);
 }
 
 
