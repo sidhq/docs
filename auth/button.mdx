@@ -127,6 +127,9 @@ const handleDisconnect = () => {
 You can find more information on the disconnecting users in the section on [revoking tokens](/auth/revoke).
 
 ### Props
+<ResponseField name="className" type="string">
+  The CSS class name to be applied to the button.
+</ResponseField>
 <ResponseField name="isConnected" type="boolean">
   Determines the state of the button based on user's authentication. 
   If `true`, the button is split into "Manage SID" and "Disconnect SID". 
@@ -142,7 +145,7 @@ You can find more information on the disconnecting users in the section on [revo
   The height of the button in pixels.
 </ResponseField>
 <ResponseField name="onDisconnect" type="function">
-  A callback function that will be invoked when the "Disconnect SID" button is clicked.
+  An asynchronous callback function that will be invoked when the "Disconnect SID" button is clicked.
   This function should contain logic for disconnecting SID for the user from your application.
   See the section on [revoking tokens](/auth/revoke) for more information.
 </ResponseField>
