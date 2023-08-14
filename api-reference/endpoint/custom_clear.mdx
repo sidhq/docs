@@ -1,0 +1,19 @@
+---
+title: "Clear Custom Data"
+api: "POST https://api.sid.ai/v1/users/me/services/me/clear"
+description: "Clear your service's custom data from the user's index"
+---
+### Body
+The body should be empty.
+
+### Response
+A response with code 200 will be returned upon success.
+
+<RequestExample>
+
+```bash Example Request
+curl -X POST 'https://api.sid.ai/v1/users/me/services/me/clear' \
+--header 'Authorization: Bearer <access_token>'
+```
+
+</RequestExample>

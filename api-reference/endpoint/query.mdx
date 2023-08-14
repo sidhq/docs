@@ -1,6 +1,6 @@
 ---
 title: "Query"
-api: "POST https://api.sid.ai/api/v1/users/me/data/query"
+api: "POST https://api.sid.ai/v1/users/me/query"
 description: "Query for text in the user's connected integrations."
 ---
 
@@ -16,8 +16,23 @@ description: "Query for text in the user's connected integrations."
 
 ### Response
 
-<ResponseField name="results" type="[string]">
+<ResponseField name="results" type="[object]">
   An array of strings that represent the results of the query. The strings may be raw or processed text, depending on the integration.
+
+  <Expandable title="Toggle object">
+  <ResponseField name="score" type="number">
+    A floating point value in the range [0, 1] indicating how relevant the result is to the query. The higher the score, the more relevant the result is.
+  </ResponseField>
+  <ResponseField name="name" type="string">
+    The name of the original data object that the result came from. This could be a file name, a document title, or a message sender.
+  </ResponseField>
+  <ResponseField name="kind" type="string">
+    The data source from which the result came from. Possible values are `gdrive`, `notion`, `gmail`, `dropbox`, and `custom`.
+  </ResponseField>
+  <ResponseField name="text" type="string">
+    The raw text of the result. This is the text that was indexed by the system, and is what should be processed further by the client.
+  </ResponseField>
+  </Expandable>
 </ResponseField>
 
 <ResponseField name="meta" type="object">
@@ -37,7 +52,7 @@ description: "Query for text in the user's connected integrations."
 <RequestExample>
 
 ```bash Example Request
-curl -X POST 'https://api.sid.ai/api/v1/users/me/data/query' \
+curl -X POST 'https://api.sid.ai/v1/users/me/query' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer <access_token>' \
 --data-raw '{
@@ -53,8 +68,13 @@ curl -X POST 'https://api.sid.ai/api/v1/users/me/data/query' \
 ```json Response
 {
   "results": [
-    "",
-    ""
+    {
+      "score": 0.94,
+      "title": "SID Company Profile",
+      "kind": "gdrive",
+      "text": "SID is a company that makes software for searching and organizing information."
+    },
+    /* ... */
   ],
   "meta": {
     "sync_in_progress": false,

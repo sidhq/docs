@@ -71,7 +71,9 @@
     {
       "group": "Endpoints",
       "pages": [
-        "api-reference/endpoint/query"
+        "api-reference/endpoint/query",
+        "api-reference/endpoint/custom_insert",
+        "api-reference/endpoint/custom_clear"
       ]
     }
   ],

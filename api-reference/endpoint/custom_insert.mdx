@@ -1,0 +1,43 @@
+---
+title: "Insert Custom Data"
+api: "POST https://api.sid.ai/v1/users/me/services/me/insert"
+description: "Insert custom data into the user's index"
+---
+
+### Body
+
+<ParamField body="data" type="[object]" required>
+  <Expandable title="Toggle object">
+  <ResponseField name="name" type="string">
+    The name of this item. This is the name that will be displayed in the search results.
+  </ResponseField>
+  <ResponseField name="text" type="string">
+    The raw text of the item which will be indexed by the system.
+  </ResponseField>
+  </Expandable>
+</ParamField>
+
+### Response
+A response with status code 202 will be returned if the request was successful.
+
+<RequestExample>
+
+```bash Example Request
+curl -X POST 'https://api.sid.ai/v1/users/me/services/me/insert' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer <access_token>' \
+--data-raw '{
+    "data": [
+        {
+            "name": "Example Item 1",
+            "text": "This is the raw text for Example Item 1"
+        },
+        {
+            "name": "Example Item 2",
+            "text": "This is the raw text for Example Item 2"
+        }
+    ],
+}'
+```
+
+</RequestExample>
