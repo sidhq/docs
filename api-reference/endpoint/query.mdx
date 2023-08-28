@@ -7,17 +7,24 @@ description: "Query for text in the user's connected integrations."
 ### Body
 
 <ParamField body="query" type="string" required>
-  This is the search term that you want to query for. It can be any kind of text, such as a question, a phrase, or a sentence.
+  This is the search term that you want to query for. 
+  It can be any kind of text, such as a question, a phrase, or a sentence.
 </ParamField>
 
 <ParamField body="limit" type="number" default={10}>
   A number that indicates how many results you want to receive at most.
 </ParamField>
 
+<ParamField body="context_size" type="number" default={0}>
+  The maximum number of predecessor and successor chunks to fetch for each result. 
+  For example, a value of 2 would fetch two predecessor and two successor chunks for each result. 
+  A value of 0 would fetch no context chunks.
+</ParamField>
+
 ### Response
 
 <ResponseField name="results" type="[object]">
-  An array of strings that represent the results of the query. The strings may be raw or processed text, depending on the integration.
+  An array of objects that represent the results of the query.
 
   <Expandable title="Toggle object">
   <ResponseField name="score" type="number">
@@ -31,6 +38,12 @@ description: "Query for text in the user's connected integrations."
   </ResponseField>
   <ResponseField name="text" type="string">
     The raw text of the result. This is the text that was indexed by the system, and is what should be processed further by the client.
+  </ResponseField>
+  <ResponseField name="predecessors" type="[string]">
+    The raw text of the predecessor chunks of the result. Only returned if `context_size` is greater than 0.
+  </ResponseField>
+  <ResponseField name="successors" type="[string]">
+    The raw text of the successor chunks of the result. Only returned if `context_size` is greater than 0.
   </ResponseField>
   </Expandable>
 </ResponseField>
