@@ -70,7 +70,8 @@ curl -X POST 'https://api.sid.ai/v1/users/me/query' \
 --header 'Authorization: Bearer <access_token>' \
 --data-raw '{
     "query": "What does SID do?",
-    "limit": 10
+    "limit": 10,
+    "context_size": 1
 }'
 ```
 
@@ -85,7 +86,13 @@ curl -X POST 'https://api.sid.ai/v1/users/me/query' \
       "score": 0.94,
       "title": "SID Company Profile",
       "kind": "gdrive",
-      "text": "SID is a company that makes software for searching and organizing information."
+      "text": "SID is a company that makes software for searching and organizing information. ...",
+      "predecessors": [
+        "..."
+      ],
+      "successors": [
+        "..."
+      ]
     },
     /* ... */
   ],
