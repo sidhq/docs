@@ -8,7 +8,7 @@ SID uses this protocol to securely give your application access to the user's SI
 It involves the following steps:
 
 1. **Authorization Link:** 
-In your application, the user clicks a special authorization link which takes then to the SID dashboard to authenticate.
+In your application, the user clicks a special authorization link which takes them to the SID dashboard to authenticate.
 
 2. **Redirect:** 
 After the user logs in and grants access permissions to your application, SID redirects them back to your application with an authorization code. 
@@ -38,7 +38,6 @@ To initiate the flow, you must set up the following query parameters in the URL:
 params = {
     'response_type': 'code',
     'scope': 'query:data offline_access',
-    'audience': 'https://api.sid.ai/api/v1/',
     'client_id': env.SID_CLIENT_ID,
     'redirect_uri': env.SID_REDIRECT_URI,
     'state': gen_random_state(), # optional
@@ -48,6 +47,10 @@ auth_url += '?' + urlencode(params)
 
 # now, redirect user to auth_url
 ``` 
+As an example, the following might be a valid authorization URL:
+```bash
+https://me.sid.ai/api/oauth/authorize?response_type=code&scope=query%3Adata+offline_access&client_id=my_client_id&redirect_uri=https%3A%2F%2Fexample.com%2Fcallback&state=abcde
+```
 
 You then need to redirect the user to this URL. 
 Usually, this will happen through a button or link in your application, 
