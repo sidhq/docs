@@ -37,7 +37,7 @@ To initiate the flow, you must set up the following query parameters in the URL:
 ```python
 params = {
     'response_type': 'code',
-    'scope': 'data:query offline_access',
+    'scope': 'query:data offline_access',
     'audience': 'https://api.sid.ai/api/v1/',
     'client_id': env.SID_CLIENT_ID,
     'redirect_uri': env.SID_REDIRECT_URI,
