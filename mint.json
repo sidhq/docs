@@ -11,6 +11,11 @@
     }
   },
   "favicon": "/favicon-32x32.png",
+  "feedback": {
+    "thumbsRating": true,
+    "suggestEdit": true,
+    "raiseIssue": true
+  },
   "colors": {
     "primary": "#F3E6D3",
     "light": "#F3E6D3",
@@ -43,7 +48,7 @@
     {
       "name": "Community",
       "icon": "slack",
-      "url": "https://sid.ai/slack"
+      "url": "https://sid-ai-hq.slack.com"
     },
     {
       "name": "Blog",
@@ -54,19 +59,32 @@
   "navigation": [
     {
       "group": "Get Started",
-      "pages": ["start/introduction", "start/quickstart"]
+      "pages": [
+        "start/introduction",
+        "start/quickstart"
+      ]
     },
     {
       "group": "Authorization",
-      "pages": ["auth/flow", "auth/credentials", "auth/tokens", "auth/button", "auth/revoke"]
+      "pages": [
+        "auth/flow",
+        "auth/credentials",
+        "auth/tokens",
+        "auth/revoke"
+      ]
     },
     {
       "group": "Build your App",
-      "pages": ["build/query", "build/prompts"]
+      "pages": [
+        "build/query",
+        "build/prompts"
+      ]
     },
     {
       "group": "API Documentation",
-      "pages": ["api-reference/authentication"]
+      "pages": [
+        "api-reference/authentication"
+      ]
     },
     {
       "group": "Endpoints",

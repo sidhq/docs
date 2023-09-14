@@ -1,6 +1,79 @@
 ---
-title: 'Query the API'
+title: 'Use the Query API'
 description: 'Learn how to make your first query to the API'
 ---
-To be completed. For now, see the [API Reference](/api-reference/),
-and the page on the [query endpoint](/api-reference/endpoint/query) in particular.
+The most important part of the SID API is the [query endpoint](/api-reference/endpoint/query),
+available at `https://api.sid.ai/v1/user/me/query`.
+This is the endpoint that allows you to query the user's data that has been indexed by SID.
+In this section, we'll discuss basic usage examples of the endpoint, and limitations
+that you should keep in mind when using it.
+
+In its simplest form, a query is a JSON object with a single key, `query`, whose value is a string,
+for example:
+```json
+{
+  "query": "what does SID do?"
+}
+```
+
+This query will return a list of documents that are relevant to the query, 
+along with a score and certain metadata. An example response is shown below:
+
+```json
+{
+  "results": [
+    {
+      "score": 0.94,
+      "title": "SID Company Profile",
+      "kind": "gdrive",
+      "text": "SID is a company that makes software for searching and organizing information. ...",
+    },
+    {
+      "score": 0.63,
+      "title": "Quarterly Results",
+      "kind": "notion",
+      "text": "In the last quarter, SID has integrated with multiple notable companies, including ...",
+    },
+    /* ... */
+  ],
+  "meta": {
+    "sync_in_progress": false,
+  }
+}
+```
+
+Assuming the original query comes from a user, you could, for example, 
+feed the results into an LLM to further refine them, and then display them to the user.
+
+
+## Tips for Querying
+
+Querying with the SID API is akin to using a search engine like Google. 
+You can use natural language queries to get good results. 
+For instance, a query like 
+```
+What are the main features of SID, and how can they help me?
+``` 
+would yield relevant results. 
+However, if you're looking for something specific, using keywords can yield better results. 
+For example, if you have a document titled "SID primary features", 
+then a query like 
+```
+main features sid
+```
+would have a higher likelihood of finding this document than a more complex query in natural language.
+
+## Limitations
+
+It's important to note that while the query API is excellent for retrieving information about a specific topic, 
+it's not yet adept at answering holistic questions such as "what do you know", "what files can you access", or "what are my last 10 emails about". 
+Therefore, your queries should always address the content or metadata of specific documents. 
+This is a common point of confusion for many users, so it's worth keeping in mind when crafting your queries, or processing your users' queries..
+
+  <Card
+    title="API Reference"
+    icon="rocket"
+    href="/api-reference/endpoint/query"
+  >
+    Learn more about the query endpoint
+  </Card>

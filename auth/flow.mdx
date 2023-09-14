@@ -34,7 +34,25 @@ The authorization flow is initiated by redirecting a user to the SID authorizati
 https://me.sid.ai/api/oauth/authorize
 ```
 To initiate the flow, you must set up the following query parameters in the URL:
-```python
+<CodeGroup>
+```typescript Typescript
+import { URLSearchParams } from 'url';
+
+const params = {
+    'response_type': 'code',
+    'scope': 'query:data offline_access',
+    'client_id': process.env.SID_CLIENT_ID,
+    'redirect_uri': process.env.SID_REDIRECT_URI,
+    'state': genRandomState(), // optional, assuming you have a function genRandomState() defined
+};
+
+const authUrl = new URL('https://me.sid.ai/api/oauth/authorize');
+authUrl.search = new URLSearchParams(params).toString();
+
+// now, redirect user to authUrl
+```
+
+```python Python
 params = {
     'response_type': 'code',
     'scope': 'query:data offline_access',
@@ -47,6 +65,8 @@ auth_url += '?' + urlencode(params)
 
 # now, redirect user to auth_url
 ``` 
+
+</CodeGroup>
 As an example, the following might be a valid authorization URL:
 ```bash
 https://me.sid.ai/api/oauth/authorize?response_type=code&scope=query%3Adata+offline_access&client_id=my_client_id&redirect_uri=https%3A%2F%2Fexample.com%2Fcallback&state=abcde
