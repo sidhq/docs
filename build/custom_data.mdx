@@ -1,0 +1,73 @@
+---
+title: 'Ingest Custom Data'
+description: 'Make data produced in you application available through SID'
+---
+## Overview
+While using your application, your users constantly generate content through their interactions,
+which can provide valuable context in the future.
+
+For example, let's imagine that we want to build an AI chat application that can remember past conversations.
+There are two main aspects to this:
+1. Ingesting past conversations   
+2. Retrieving relevant conversation data
+
+The custom data insertion functionality can be used to achieve exactly this:
+Whenever the user finishes a conversation, 
+it is converted into text and sent to SID, where it is processed, chunked and indexed.
+It can then be retrieved through the [query](/build/query) functionality.
+
+## Inserting Data
+You can ingest your custom data by `POST`ing JSON data to the 
+[ingest endpoint](/api-reference/endpoint/custom_insert)
+as shown below:
+```json
+{
+    "data": [
+        {
+            "name": "Example Item 1",
+            "text": "This is the raw text for Example Item 1"
+        },
+        {
+            "name": "Example Item 2",
+            "text": "This is the raw text for Example Item 2"
+        },
+        {
+            "name": "Long Item",
+            "text": "Lorem ipsum dolor sit amet, ..."
+        }
+  ]
+}
+```
+<Info>
+The `text` field can be arbitrarily long. If necessary, it will be partitioned during indexing.
+</Info>
+
+## Retrieving Data
+After you ingest your custom data, it will become available for retrieval through the
+standard [query endpoint](/api-reference/endpoints/query).
+
+Items ingested in this manner will have a `kind` value of `custom`.
+
+## Deleting Data
+You can delete all custom data ingested through your service by making 
+an empty post request to the
+[clear endpoint](/api-reference/endpoints/custom_clear).
+
+It is currently not possible to delete individual items.
+
+<CardGroup cols={2}>
+<Card
+title="Insert API Reference"
+icon="rocket"
+href="/api-reference/endpoint/custom_insert"
+>
+Read the specification of the insert endpoint
+</Card>
+<Card
+title="Clear API Reference"
+icon="rocket"
+href="/api-reference/endpoint/custom_clear"
+>
+Read the specification of the clear endpoint
+</Card>
+</CardGroup>
