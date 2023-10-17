@@ -35,8 +35,8 @@
     }
   ],
   "topbarCtaButton": {
-    "name": "Dashboard",
-    "url": "https://me.sid.ai"
+    "name": "Get Started",
+    "url": "https://app.sid.ai"
   },
   "tabs": [
     {
@@ -46,14 +46,14 @@
   ],
   "anchors": [
     {
-      "name": "Community",
-      "icon": "slack",
-      "url": "https://sid-ai-hq.slack.com"
+      "name": "Homepage",
+      "icon": "house",
+      "url": "https://sid.ai"
     },
     {
-      "name": "Blog",
-      "icon": "newspaper",
-      "url": "https://sid.ai"
+      "name": "Dev Dashboard",
+      "icon": "code",
+      "url": "https://sid-ai-hq.slack.com"
     }
   ],
   "navigation": [
