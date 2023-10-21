@@ -49,7 +49,7 @@ const params = {
 const authUrl = new URL('https://me.sid.ai/api/oauth/authorize');
 authUrl.search = new URLSearchParams(params).toString();
 
-// now, redirect user to authUrl
+// redirect user to authUrl created above
 ```
 
 ```python Python
@@ -63,11 +63,11 @@ params = {
 auth_url = 'https://me.sid.ai/api/oauth/authorize'
 auth_url += '?' + urlencode(params)
 
-# now, redirect user to auth_url
+# redirect user to auth_url created above
 ``` 
 
 </CodeGroup>
-As an example, the following might be a valid authorization URL:
+This is an example of a valid authorization URL created for `example.com`:
 ```bash
 https://me.sid.ai/api/oauth/authorize?response_type=code&scope=query%3Adata+offline_access&client_id=my_client_id&redirect_uri=https%3A%2F%2Fexample.com%2Fcallback&state=abcde
 ```
