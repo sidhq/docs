@@ -58,23 +58,24 @@
   ],
   "navigation": [
     {
-      "group": "Get Started",
+      "group": "Introduction",
       "pages": [
         "start/introduction",
+        "start/explainer",
         "start/quickstart"
       ]
     },
     {
       "group": "Authorization",
       "pages": [
-        "auth/flow",
+        "auth/overview",
         "auth/credentials",
-        "auth/tokens",
+        "auth/flow",
         "auth/revoke"
       ]
     },
     {
-      "group": "Build your App",
+      "group": "Build",
       "pages": [
         "build/query",
         "build/custom_data",

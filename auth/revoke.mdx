@@ -9,7 +9,8 @@ You can allow your users to do this by requesting the revocation of the tokens t
 For this, the `/oauth/revoke` endpoint is used. It accepts a json body containing your application's `client_id`, `client_secret`, and the `token` to be revoked.
 The following example shows how to do this in Node.js using the [axios](https://www.npmjs.com/package/axios) library.
 
-```js
+<CodeGroup>
+```typescript Node.js
 let refreshToken = /* database query / session / etc. */;
 
 const data = {
@@ -20,10 +21,29 @@ const data = {
 
 await axios.post('https://auth.sid.ai/oauth/revoke', data);
 ```
+
+```python Python
+import os
+import httpx
+
+refresh_token = # database query / session / etc.
+
+data = {
+    'client_id': os.getenv('SID_CLIENT_ID'),
+    'client_secret': os.getenv('SID_CLIENT_SECRET'),
+    'token': refresh_token,
+}
+
+await httpx.post('https://auth.sid.ai/oauth/revoke', json=data)
+```
+
+</CodeGroup>
+
 <Info>
 When a token is revoked, all other tokens belonging to the same user account are also revoked.
 </Info>
-A revocation should be triggered when requested by the user, for example, by clicking a button in your application.
-Our pre-built [React component](/auth/button) can be used for this purpose.
+
+A revocation should be triggered when requested by the user, 
+for example, by clicking a "disconnect" button in your application.
 
 To reconnect their account, the user will have to go through the [authorization flow](/auth/flow) again.
