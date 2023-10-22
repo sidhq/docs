@@ -43,7 +43,6 @@ const params = {
     'scope': 'query:data offline_access',
     'client_id': process.env.SID_CLIENT_ID,
     'redirect_uri': process.env.SID_REDIRECT_URI,
-    'state': genRandomState(), // optional, assuming you have a function genRandomState() defined
 };
 
 const authUrl = new URL('https://me.sid.ai/api/oauth/authorize');
@@ -58,7 +57,6 @@ params = {
     'scope': 'query:data offline_access',
     'client_id': env.SID_CLIENT_ID,
     'redirect_uri': env.SID_REDIRECT_URI,
-    'state': gen_random_state(), # optional
 }
 auth_url = 'https://me.sid.ai/api/oauth/authorize'
 auth_url += '?' + urlencode(params)
@@ -69,18 +67,13 @@ auth_url += '?' + urlencode(params)
 </CodeGroup>
 This is an example of a valid authorization URL created for `example.com`:
 ```bash
-https://me.sid.ai/api/oauth/authorize?response_type=code&scope=query%3Adata+offline_access&client_id=my_client_id&redirect_uri=https%3A%2F%2Fexample.com%2Fcallback&state=abcde
+https://me.sid.ai/api/oauth/authorize?response_type=code&scope=query%3Adata+offline_access&client_id=my_client_id&redirect_uri=https%3A%2F%2Fexample.com%2Fcallback
 ```
 
 You then need to redirect the user to this URL. 
 Usually, this will happen through a button or link in your application, 
 which could be located in a settings page, or on the user's profile page.
 
-<Info>
-The `state` parameter is a random string that you generate. 
-It is then returned to your application in the callback, and you can use it to verify that the callback is legitimate.
-Passing a `state` is optional, but recommended.
-</Info>
 
 ## Callback
 The authorization URL will redirect the user to the SID dashboard, where they will be prompted to log in and grant access permissions to your application.
@@ -97,13 +90,6 @@ The following code snippet shows example callback handlers in a few different la
 import { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  // extract state value from query string
-  let state = req.query.state;
-  // verify that state value corresponds to a previously issued state
-  if (!check_state(state)) {
-    res.status(400).send('Invalid state');
-    return;
-  }
   // get authorization code from query string
   let code = req.query.code;
   // perform token exchange to get access token and refresh token
@@ -114,12 +100,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
 ```typescript Next.js (app router)
 export async function GET(request: Request) {
-  if (!check_state(request.query.get('state'))) {
-    return {
-      status: 400,
-      body: 'Invalid state',
-    };
-  }
   // get authorization code from query string
   let code = request.query.get('code');
   // perform token exchange to get access token and refresh token
@@ -134,11 +114,6 @@ app = FastAPI()
 
 @app.get("/sid/callback")
 async def read_root(request: Request):
-    # extract state value from query string
-    state = request.query_params.get('state')
-    # verify that state value corresponds to a previously issued state
-    if not check_state(state):
-        return Response(status_code=400, content='Invalid state')
     code = request.query_params.get('code')
     # perform token exchange to get access token and refresh token
     accessToken, refreshToken = await token_exchange(code)
