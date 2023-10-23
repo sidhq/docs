@@ -1,0 +1,47 @@
+---
+title: "Example"
+api: "POST https://api.sid.ai/v1/users/me/example"
+description: "Get an example query that the user can use to try out your app"
+---
+
+### Body
+
+<ParamField body="usage" type="string" required>
+    This is the type of example to generate. Possible values are "question" and "task"
+</ParamField>
+
+### Response
+
+<ResponseField name="result" type="object">
+  <Expandable title="Toggle object">
+  <ResponseField name="text" type="string">
+    The generated example query
+  </ResponseField>
+  </Expandable>
+</ResponseField>
+
+
+<RequestExample>
+
+```bash Example Request
+curl -X POST 'https://api.sid.ai/v1/users/me/example' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer <access_token>' \
+--data-raw '{
+    "usage": "question"
+}'
+```
+
+</RequestExample>
+
+<ResponseExample>
+
+```json Response
+{
+  "result": {
+    "text": "What does SID do?"
+  }
+}
+```
+
+</ResponseExample>
