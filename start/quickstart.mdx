@@ -1,6 +1,6 @@
 ---
 title: 'Try the API'
-description: 'Call the SID API on your own account'
+description: 'Experiment with the SID API on your own data'
 ---
 ## Overview
 The purpose of this quickstart is to allow you to try the API with minimal initial setup.
@@ -20,11 +20,11 @@ You should now see a token in the top right corner of the page.
 This is your access token, which you will be able to use in the following steps.
 
 <Info>
-This token is only valid for a day. Read up on [auth flows](/auth/flow) for a proper setup.
+This token is only valid for a day, and is only meant for testing purposes.
 </Info>
 <Info>
 If the token is expired, you can get a new one by disconnecting and reconnecting your SID account,
-or by making a request with the demo. This will refresh the token.
+or by making a request with the demo. Either will refresh the token.
 </Info>
 
 ## Call the API
@@ -37,5 +37,7 @@ For example, if you connected your Google Drive account, try querying for the ti
 
 ## A Proper Setup
 Obviously, in a real deployment you wouldn't want to just query your own data.
-To allow your users to connect their own SID account, you'll need to set up a proper [OAuth2 flow](/auth/flow).
-This will allow you to programatically obtain an access token for your users, and make API calls on their behalf.
+To allow your users to connect their own SID account,
+you'll need to set up a proper [authorization flow](/auth/flow).
+This will allow you to programatically obtain an access token for your users, 
+and make API calls on their behalf.

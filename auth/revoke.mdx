@@ -75,12 +75,12 @@ async def sid_disconnect(request: Request):
 ```
 </CodeGroup>
 
+A revocation should be triggered when requested by the user.
+For example, you can add a button to your application that triggers a request to the `disconnect` endpoint.
+
 <Info>
 You can either use the `refresh_token` or the `access_token` to revoke the tokens.
 The revocation of either one will revoke both.
 </Info>
-
-A revocation should be triggered when requested by the user.
-For example, you can add a button to your application that triggers a request to the `disconnect` endpoint.
 
 To reconnect their account, the user will have to go through the [authorization flow](/auth/flow) again.

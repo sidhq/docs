@@ -83,6 +83,13 @@
       ]
     },
     {
+      "group": "Examples",
+      "pages": [
+        "examples/rag-simple",
+        "examples/rag-memory"
+      ]
+    },
+    {
       "group": "API Documentation",
       "pages": [
         "api-reference/authentication"
