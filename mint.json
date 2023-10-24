@@ -54,6 +54,11 @@
       "name": "Dev Dashboard",
       "icon": "code",
       "url": "https://app.sid.ai"
+    },
+    {
+      "name": "Support Discord",
+      "icon": "discord",
+      "url": "https://discord.gg/57w3hHS4JX"
     }
   ],
   "navigation": [
