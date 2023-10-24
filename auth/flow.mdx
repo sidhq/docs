@@ -12,64 +12,102 @@ The authorization flow is initiated by redirecting a user to the SID authorizati
 ```bash
 https://me.sid.ai/api/oauth/authorize
 ```
-To initiate the flow, you must set up the following query parameters in the URL:
+
+To correctly initate the flow, you must also provide a set of query parameters to the URL.
+One way to achieve this is to navigate to an API route in your application,
+which constructs the authorization URL and redirects the user to it.
+
 <CodeGroup>
-```typescript Node.js
-import { URLSearchParams } from 'url';
 
-const params = {
-    'response_type': 'code',
-    'scope': 'query:data offline_access',
-    'client_id': process.env.SID_CLIENT_ID,
-    'redirect_uri': process.env.SID_REDIRECT_URI,
-};
+```typescript Node.js (Next Pages Router)
+import { NextApiRequest, NextApiResponse } from 'next';
 
-const authUrl = new URL('https://me.sid.ai/api/oauth/authorize');
-authUrl.search = new URLSearchParams(params).toString();
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  const params = {
+      'response_type': 'code',
+      'scope': 'query:data offline_access',
+      'client_id': process.env.SID_CLIENT_ID,
+      'redirect_uri': process.env.SID_REDIRECT_URI,
+  };
 
-// redirect user to authUrl created above
+  const authUrl = new URL('https://me.sid.ai/api/oauth/authorize');
+  authUrl.search = new URLSearchParams(params).toString();
+
+  res.redirect(authUrl.toString());
+}
 ```
 
-```python Python
-params = {
-    'response_type': 'code',
-    'scope': 'query:data offline_access',
-    'client_id': env.SID_CLIENT_ID,
-    'redirect_uri': env.SID_REDIRECT_URI,
-}
-auth_url = 'https://me.sid.ai/api/oauth/authorize'
-auth_url += '?' + urlencode(params)
+```typescript Node.js (Next App Router)
+import { NextRequest } from 'next/server';
 
-# redirect user to auth_url created above
-``` 
+export async function GET(request: NextRequest) {
+  const params = {
+      'response_type': 'code',
+      'scope': 'query:data offline_access',
+      'client_id': process.env.SID_CLIENT_ID,
+      'redirect_uri': process.env.SID_REDIRECT_URI,
+  };
+
+  const authUrl = new URL('https://me.sid.ai/api/oauth/authorize');
+  authUrl.search = new URLSearchParams(params).toString();
+
+  return Response.redirect(authUrl.toString());
+}
+```
+
+```python Python (FastAPI)
+import os
+
+app = FastAPI()
+
+@app.get("/api/sid/connect")
+async def sid_connect(request: Request):
+	params = {
+		'response_type': 'code',
+		'scope': 'query:data offline_access',
+		'client_id': os.getenv('SID_CLIENT_ID'),
+		'redirect_uri': os.getenv('SID_REDIRECT_URI'),
+	}
+	auth_url = 'https://me.sid.ai/api/oauth/authorize'
+	auth_url += '?' + urlencode(params)
+    return RedirectResponse(auth_url)
+```
 
 </CodeGroup>
+
+With this route exposed under `https://example.com/api/sid/connect`,
+you can allow the user to initiate the flow by providing a link to this path, as shown below:
+
+```html
+<a href="https://example.com/api/sid/connect">Connect to SID</a>
+```
+
+This will dynamically construct the authorization URL and redirect the user to it.
 
 <Note>
 The required scopes are currently fixed to `query:data` and `offline_access`. 
 The former allows usage of the query endpoint, and the latter allows refreshing of tokens.
 In the future, the API may support more granular scopes.
 </Note>
-This is an example of a valid authorization URL created for `example.com`:
-```bash
-https://me.sid.ai/api/oauth/authorize?response_type=code&scope=query%3Adata+offline_access&client_id=my_client_id&redirect_uri=https%3A%2F%2Fexample.com%2Fcallback
-```
 
-You then need to redirect the user to this URL. 
-Usually, this will happen through a button or link in your application, 
-which could be located in a settings page, or on the user's profile page.
-
+<Note>
+Currently, all query parameters take fixed values, and the URL could be constructed statically.
+However, dynamic query parameters may be added in the future, so it is recommended to construct the URL dynamically.
+</Note>
 
 ## Callback
 The authorization URL will redirect the user to their SID account, 
 where they will be prompted to log in and grant access permissions to your application.
 Once they have done so, they will be redirected back to your application with an authorization code. 
-You will need to provide a redirect URI to receive this code.
+You will need to provide a redirect URI to handle this callback.
 
-For example, if your application is hosted at `https://example.com`, you could specify a redirect URI of `https://example.com/api/sid/callback`. 
-You should then handle incoming `GET` requests to this URI to receive the authorization code, which is provided in the `code` query parameter.
+For example, if your application is hosted at `https://example.com`, 
+you could specify a redirect URI of `https://example.com/api/sid/callback`. 
+You should then handle incoming `GET` requests to this URI to receive the authorization code, 
+which is provided in the `code` query parameter.
 
-Continuing with the example, a possible callback would be a `GET` request to `https://example.com/api/sid/callback?code=96843854772`.
+Continuing with the example, 
+a possible callback would be a `GET` request to `https://example.com/api/sid/callback?code=96843854772`.
 
 After handling the callback, you should redirect the user back to your application. 
 In the following example, the user is redirected to `https://example.com`, 
@@ -81,12 +119,17 @@ The token exchange is discussed in the next section.
 
 <CodeGroup>
 
-```typescript Node.js (Next)
+```typescript Node.js (Next Pages Router)
 import { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   // get authorization code from query string
   let code = req.query.code;
+  if (!code) {
+    // show an error page to the user
+    res.redirect('http://example.com/error');
+    return;
+  }
   // perform token exchange to get access token and refresh token
   let { accessToken, refreshToken } = await tokenExchange(code);
 
@@ -99,9 +142,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 ```
 
 ```typescript Node.js (Next App Router)
-export async function GET(request: Request) {
+import { NextRequest } from 'next/server';
+
+export async function GET(request: NextRequest) {
   // get authorization code from query string
-  let code = request.query.get('code');
+  let code = request.nextUrl.searchParams.get('code');
+  if (!code) {
+    // show an error page to the user
+    return Response.redirect('http://example.com/error');
+  }
+  
   // perform token exchange to get access token and refresh token
   let { accessToken, refreshToken } = await tokenExchange(code);
 
@@ -116,8 +166,8 @@ export async function GET(request: Request) {
 ```python Python (FastAPI)
 app = FastAPI()
 
-@app.get("/sid/callback")
-async def read_root(request: Request):
+@app.get("/api/sid/callback")
+async def sid_callback(request: Request):
     code = request.query_params.get('code')
     # perform token exchange to get access token and refresh token
     accessToken, refreshToken = await token_exchange(code)
@@ -147,7 +197,7 @@ into an access token and a refresh token using a token exchange, as shown below:
 import axios from 'axios';
 
 async function tokenExchange(code: string) {
-// construct data to send to SID
+  // construct request data
   const data = {
     grant_type: 'authorization_code',
     client_id: process.env.SID_CLIENT_ID,
@@ -172,12 +222,12 @@ import os
 import httpx
 
 async def token_exchange(code: str):
-    # construct data to send to SID
+    # construct request data
     data = {
         'grant_type': 'authorization_code',
-        'client_id': os.environ.get('SID_CLIENT_ID'),
-        'client_secret': os.environ.get('SID_CLIENT_SECRET'),
-        'redirect_uri': os.environ.get('SID_REDIRECT_URI'),
+        'client_id': os.getenv('SID_CLIENT_ID'),
+        'client_secret': os.getenv('SID_CLIENT_SECRET'),
+        'redirect_uri': os.getenv('SID_REDIRECT_URI'),
         'code': code,
     }
 
@@ -202,37 +252,40 @@ The below code example shows the process.
 
 <CodeGroup>
 ```typescript Node.js
-let refreshToken = /* database query */;
+import axios from 'axios';
 
-const data = {
-    grant_type: 'refresh_token',
-    client_id: process.env.SID_CLIENT_ID,
-    client_secret: process.env.SID_CLIENT_SECRET,
-    redirect_uri: process.env.SID_REDIRECT_URL,
-    refresh_token: refreshToken,
-};
-const response = await axios.post('https://auth.sid.ai/oauth/token', data);
-const { access_token } = response.data;
+async function refreshAccessToken(refreshToken: string) {
+    const data = {
+        grant_type: 'refresh_token',
+        client_id: process.env.SID_CLIENT_ID,
+        client_secret: process.env.SID_CLIENT_SECRET,
+        redirect_uri: process.env.SID_REDIRECT_URL,
+        refresh_token: refreshToken,
+    };
+    const response = await axios.post('https://auth.sid.ai/oauth/token', data);
+    const { access_token } = response.data;
+    return access_token;
+}
 ```
 
 ```python Python
 import os
 import httpx
 
-refresh_token = # database query
+async def refresh_access_token(refresh_token: str):
+    data = {
+        'grant_type': 'refresh_token',
+        'client_id': os.getenv('SID_CLIENT_ID'),
+        'client_secret': os.getenv('SID_CLIENT_SECRET'),
+        'redirect_uri': os.getenv('SID_REDIRECT_URI'),
+        'refresh_token': refresh_token,
+    }
 
-data = {
-    'grant_type': 'refresh_token',
-    'client_id': os.environ.get('SID_CLIENT_ID'),
-    'client_secret': os.environ.get('SID_CLIENT_SECRET'),
-    'redirect_uri': os.environ.get('SID_REDIRECT_URI'),
-    'refresh_token': refresh_token,
-}
+    async with httpx.AsyncClient() as client:
+        response = await client.post('https://auth.sid.ai/oauth/token', data=data)
 
-async with httpx.AsyncClient() as client:
-    response = await client.post('https://auth.sid.ai/oauth/token', data=data)
-
-access_token = response.json()['access_token']
+    access_token = response.json()['access_token']
+    return access_token
 ```
 </CodeGroup>
 
