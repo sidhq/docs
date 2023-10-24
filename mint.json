@@ -107,5 +107,11 @@
     "github": "https://github.com/sidhq",
     "linkedin": "https://www.linkedin.com/company/92711502",
     "discord": "https://discord.gg/57w3hHS4JX"
+  },
+  "analytics": {
+    "posthog": {
+        "apiKey": "phc_JctZoSlHlfOoyucj917iYcfjiJrXKt9hrMSZNmNHlCI",
+        "apiHost": "https://eu.posthog.com"
+    }
   }
 }
