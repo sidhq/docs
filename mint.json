@@ -60,8 +60,9 @@
     {
       "group": "Introduction",
       "pages": [
+        "start/landing",
         "start/introduction",
-        "start/explainer",
+        "start/key_concepts",
         "start/quickstart"
       ]
     },
