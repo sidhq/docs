@@ -21,6 +21,13 @@ description: "Query for text in the user's connected integrations."
   A value of 0 would fetch no context chunks.
 </ParamField>
 
+<ParamField body="query_processing" type="string" default={"standard"}>
+  What level of preprocessing to apply to the query.
+  Valid values are `standard` and `extended`.
+  Using `extended` mode will improve the quality of results 
+  for queries that are questions or phrases, at the cost of additional latency.
+</ParamField>
+
 ### Response
 
 <ResponseField name="results" type="[object]">
@@ -71,7 +78,8 @@ curl -X POST 'https://api.sid.ai/v1/users/me/query' \
 --data-raw '{
     "query": "What does SID do?",
     "limit": 10,
-    "context_size": 1
+    "context_size": 1,
+    "query_processing": "standard"
 }'
 ```
 
