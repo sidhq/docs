@@ -27,5 +27,17 @@ it retrieves text chunks whose content is relevant to the query.
 These can then be used to generate the final, personalized, output.
 
 ## Where does the data actually come from?
+With SID, our goal is to reduce the hassle of dealing with data sources as much as possible.
+To this end, you actually never have to deal with 
+the data sources directly - SID handles all of that behind the scenes.
+
+Core to this is the concept of a *SID account*. With SID, each end user has their own SID account,
+just like they have their own Google account or Facebook account. Within their SID account,
+they can configure the data sources that they want to use, and SID will take care of the rest.
+
+Then, when a user wishes to use your app, they will be asked to log in to their SID account,
+and your application will be authorized. This gives you access to API endpoints such as the query endpoint.
+
+### Why SID accounts?
 
 
