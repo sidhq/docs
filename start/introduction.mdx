@@ -1,4 +1,31 @@
 ---
 title: Introduction
-description: "A gentle introduction to the SID platform"
+description: "A gentle introduction to SID"
 ---
+TODO
+
+So, now that we've established why you may want to personalize your app,
+let's see how SID enables you to do so.
+
+## The API
+SID is targeted at applications which use langugage models
+to process and generate text. 
+Because one of the key benefits of language models
+is the ability to extract information from unstructured data (such as text),
+SID does not attempt to impose a specific data model on the user.
+
+Instead, most of the API is centered around text chunks,
+which are simply strings of text with some metadata attached to them.
+These are intended to be fed into a language model, which will then
+produce the final output.
+Chunks are created by retrieving text from the various data sources that a user has configured.
+
+### Query Endpoint
+The main endpoint of the API is the `/query` endpoint. 
+Given a query string,
+it retrieves text chunks whose content is relevant to the query.
+These can then be used to generate the final, personalized, output.
+
+## Where does the data actually come from?
+
+
