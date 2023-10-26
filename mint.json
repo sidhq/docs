@@ -83,7 +83,8 @@
       "pages": [
         "build/query",
         "build/custom_data",
-        "build/prompts"
+        "build/prompts",
+        "build/example"
       ]
     },
     {

@@ -1,0 +1,37 @@
+---
+title: 'Use the Example Endpoint'
+description: 'Give your users personalized ideas for using your application'
+---
+An important part of building a great experience is educating your users on what is possible with your application.
+For example, if you are building a chat application powered by SID (e.g. our [demo](https://demo.sid.ai)),
+you might want to show your users what kinds of questions they can ask.
+
+The purpose of the [example endpoint](/api-reference/example) is exactly this.
+It allows you to generate personalized example content to show to your users.
+The generated examples are based on the data that your users have in their connected sources,
+which means that the [query endpoint](/api-reference/query) will be able to provide context to answer them.
+
+## An Example
+The endpoint is very simple to use, and takes only a single parameter: `type`.
+This parameter specifies the type of example that you want to generate.
+The possible values are `question`, which generates a question that can be answered by your application,
+and `task`, which generates a task that could be performed by an AI agent.
+
+```json
+{
+    "type": "question"
+}
+```
+
+The response will contain the generated example. 
+In the future, it will also contain additional metadata about the generated example.
+
+```json
+{
+    "result": {
+        "text": "What does SID.ai do?"
+    }
+}
+```
+
+Further details are available in the [API reference](/api-reference/example).
