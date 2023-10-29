@@ -62,7 +62,6 @@
       "pages": [
         "start/landing",
         "start/introduction",
-        "start/key_concepts",
         "start/quickstart"
       ]
     },
