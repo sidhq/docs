@@ -1,0 +1,29 @@
+---
+title: 'Overview'
+description: 'Enable users to give you access to the data in their SID account'
+---
+The OAuth2.0 authentication flow is a standard protocol for allowing users to connect their accounts from one application to another.
+SID uses this protocol to securely give your application access to the user's SID account.
+It involves the following general steps:
+
+1. **Start the Authorization:** 
+In your application, the user clicks an authorization link which takes them to their SID account to authenticate.
+
+2. **Grant Access:**
+The user logs in to their SID account and grants your application access.
+
+3. **Callback:** 
+The user is redirected back to your application with an authorization code. 
+The target of the redirect is a URI that you specify, such as `https://example.com/api/sid/callback`. 
+
+3. **Tokens Issued:** 
+Your application exchanges the authorization code for an access token and refresh token, and stores them for future use.
+The user is now authenticated and your application can make requests to the SID API on their behalf.
+
+<Card
+title="Get Credentials"
+icon="key"
+href="/auth/credentials"
+>
+Get your client ID and client secret to use in your application.
+</Card>

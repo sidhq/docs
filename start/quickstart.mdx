@@ -1,12 +1,12 @@
 ---
-title: 'Quickstart'
-description: 'Connect your integrations and start making API calls in minutes'
+title: 'Try the API'
+description: 'Experiment with the SID API on your own data'
 ---
 ## Overview
 The purpose of this quickstart is to allow you to try the API with minimal initial setup.
-You'll connect integrations to your personal SID account and make API calls for your own data.
+You'll connect integrations such as google drive and notion to your personal SID account and make API calls for your own data.
 
-## Set up an account and Get a Token
+## Set up an Account and Get a Token
 Head over to our [demo](https://demo.sid.ai) and click the 'Continue with SID' button.
 You will be taken to the SID login page, where you can create an account or log in with an existing one.
 
@@ -20,21 +20,24 @@ You should now see a token in the top right corner of the page.
 This is your access token, which you will be able to use in the following steps.
 
 <Info>
-This token is only valid for a day. Read up on [auth flows](/auth/flow) for a proper setup.
+This token is only valid for a day, and is only meant for testing purposes.
 </Info>
 <Info>
 If the token is expired, you can get a new one by disconnecting and reconnecting your SID account,
-or by making a request with the demo. This will refresh the token.
+or by making a request with the demo. Either will refresh the token.
 </Info>
 
 ## Call the API
-Head over to the [query](/api-reference/endpoint/query) page in the API reference. You'll see an interface to
-make API calls right in the browser. Simply add your token to the `Authorization` header and you're good to go!
+Head over to the [query](/api-reference/endpoint/query) page in the API reference. 
+You'll see an interface to make API calls right in the browser. 
+Simply add your token to the `Authorization` header, add a query to the `body`, and hit send.
 
 To start with, try simply querying for the content of one of the documents from your connected integrations.
-For example, if you connected your Google Drive account, try querying for the content of a Google Doc or PDF.
+For example, if you connected your Google Drive account, try querying for the title of a Google Doc or PDF.
 
 ## A Proper Setup
 Obviously, in a real deployment you wouldn't want to just query your own data.
-To allow your users to connect their own SID account, you'll need to set up a proper [OAuth2 flow](/auth/flow).
-This will allow you to programatically obtain an access token for your users, and make API calls on their behalf.
+To allow your users to connect their own SID account,
+you'll need to set up a proper [authorization flow](/auth/flow).
+This will allow you to programatically obtain an access token for your users, 
+and make API calls on their behalf.

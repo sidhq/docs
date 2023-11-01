@@ -63,8 +63,9 @@
   ],
   "navigation": [
     {
-      "group": "Get Started",
+      "group": "Basics",
       "pages": [
+        "start/landing",
         "start/introduction",
         "start/quickstart"
       ]
@@ -72,19 +73,26 @@
     {
       "group": "Authorization",
       "pages": [
-        "auth/flow",
+        "auth/overview",
         "auth/credentials",
-        "auth/tokens",
+        "auth/flow",
         "auth/revoke"
       ]
     },
     {
-      "group": "Build your App",
+      "group": "Build",
       "pages": [
         "build/query",
         "build/custom_data",
         "build/prompts",
         "build/example"
+      ]
+    },
+    {
+      "group": "Examples",
+      "pages": [
+        "examples/rag-simple",
+        "examples/rag-memory"
       ]
     },
     {

@@ -3,27 +3,84 @@ title: 'Revoking Access'
 description: 'Allow your users to disconnect their SID account from your application'
 ---
 ## Overview
-A user may wish to disconnect their SID account from your application, for example, if they want to use a different account.
+A user may wish to disconnect their SID account from your application, 
+for example, if they want to use a different account.
 You can allow your users to do this by requesting the revocation of the tokens that were issued to your application.
 
-For this, the `/oauth/revoke` endpoint is used. It accepts a json body containing your application's `client_id`, `client_secret`, and the `token` to be revoked.
-The following example shows how to do this in Node.js using the [axios](https://www.npmjs.com/package/axios) library.
+For this, the `/oauth/revoke` endpoint is used. 
+It accepts a json body containing your application's `client_id`, `client_secret`, and the `token` to be revoked.
+Because the `client_secret` is required, this request must be made from your server.
+You can expose this functionality to your frontend by creating an endpoint on your server that makes the request to the SID API.
 
-```js
-let refreshToken = /* database query / session / etc. */;
+<CodeGroup>
 
-const data = {
-	client_id: process.env.SID_CLIENT_ID,
-	client_secret: process.env.SID_CLIENT_SECRET,
-	token: refreshToken,
+```typescript Node.js (Next Pages Router)
+import { NextApiRequest, NextApiResponse } from 'next';
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+	let refreshToken = /* fetch from database for currently authenticated user */;
+
+	const data = {
+		client_id: process.env.SID_CLIENT_ID,
+		client_secret: process.env.SID_CLIENT_SECRET,
+		token: refreshToken,
+	}
+
+	await axios.post('https://auth.sid.ai/oauth/revoke', data);
+
+	// remove SID connection from database for currently authenticated user
+	// ...
 }
-
-await axios.post('https://auth.sid.ai/oauth/revoke', data);
 ```
+
+```typescript Node.js (Next App Router)
+import { NextRequest } from 'next/server';
+
+export async function POST(request: NextRequest) {
+	let refreshToken = /* fetch from database for currently authenticated user */;
+
+	const data = {
+		client_id: process.env.SID_CLIENT_ID,
+		client_secret: process.env.SID_CLIENT_SECRET,
+		token: refreshToken,
+	}
+
+	await axios.post('https://auth.sid.ai/oauth/revoke', data);
+
+	// remove SID connection from database for currently authenticated user
+	// ...
+}
+```
+
+```python Python (FastAPI)
+import os
+import httpx
+
+app = FastAPI()
+
+@app.post("/api/sid/disconnect")
+async def sid_disconnect(request: Request):
+	refresh_token = # fetch from database for currently authenticated user
+
+	data = {
+		'client_id': os.getenv('SID_CLIENT_ID'),
+		'client_secret': os.getenv('SID_CLIENT_SECRET'),
+		'token': refresh_token,
+	}
+
+	await httpx.post('https://auth.sid.ai/oauth/revoke', json=data)
+
+	# remove SID connection from database for currently authenticated user
+	# ...
+```
+</CodeGroup>
+
+A revocation should be triggered when requested by the user.
+For example, you can add a button to your application that triggers a request to the `disconnect` endpoint.
+
 <Info>
-When a token is revoked, all other tokens belonging to the same user account are also revoked.
+You can either use the `refresh_token` or the `access_token` to revoke the tokens.
+The revocation of either one will revoke both.
 </Info>
-A revocation should be triggered when requested by the user, for example, by clicking a button in your application.
-Our pre-built [React component](/auth/button) can be used for this purpose.
 
 To reconnect their account, the user will have to go through the [authorization flow](/auth/flow) again.

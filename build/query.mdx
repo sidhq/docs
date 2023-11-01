@@ -1,5 +1,5 @@
 ---
-title: 'Use the Query API'
+title: 'Make a Query'
 description: 'Learn how to make your first query to the API'
 ---
 The most important part of the SID API is the [query endpoint](/api-reference/endpoint/query),
@@ -23,13 +23,13 @@ along with a score and certain metadata. An example response is shown below:
 {
   "results": [
     {
-      "score": 0.94,
+      "score": 0.9470948562,
       "title": "SID Company Profile",
       "kind": "gdrive",
       "text": "SID is a company that makes software for searching and organizing information. ...",
     },
     {
-      "score": 0.63,
+      "score": 0.6341365791,
       "title": "Quarterly Results",
       "kind": "notion",
       "text": "In the last quarter, SID has integrated with multiple notable companies, including ...",
@@ -48,7 +48,7 @@ feed the results into an LLM to further refine them, and then display them to th
 
 ## Tips for Querying
 
-Querying with the SID API is akin to using a search engine like Google. 
+Querying the SID API is akin to using a search engine like Google. 
 You can use natural language queries to get good results. 
 For instance, a query like 
 ```

@@ -1,57 +1,84 @@
 ---
 title: Introduction
-description: "Welcome to the SID API documentation"
+description: "A gentle introduction to SID"
 ---
+_SID_ is a platform for building personalized AI applications.
+It allows you to always find the necessary context to anything your users are saying,
+enabling you to create truly magical experiences.
 
-{/* <img
-  className="block dark:hidden"
-  src="/logo/light.svg"
-  alt="SID Light"
-/>
-<img
-  className="hidden dark:block"
-  src="/logo/dark.svg"
-  alt="SID Dark"
-/> */}
+Imagine if ChatGPT was not just generally knowledgeable,
+but also knew everything about you - references to your documents, emails, and more - 
+just like a personal assistant.
 
-## Try it Out
+This is what SID enables you to build.
 
-Learn how to use the SID API, and give it a try with your own account.
+## The API
+Because one of the key benefits of large language models
+is the ability to extract information from unstructured data (such as text),
+SID does not attempt to impose a specific data model on you.
 
+Instead, most of the API is centered around text chunks,
+which are simply strings of text with some metadata attached to them.
+These are intended to be fed into a language model, which will then
+produce the final output.
+
+Chunks are created by retrieving text from the various data sources that a user has configured.
+Read on for more details on how this works.
+
+### Query Endpoint
+The main endpoint of the API is the `/query` endpoint. 
+Given a query string,
+it retrieves text chunks whose content is relevant to the query.
+These can then be used to generate the final, personalized, output.
+
+## Where does the data actually come from?
+Currently, SID exposes data from the following sources:
+- Google Drive
+- Notion
+- Gmail
+
+With SID, our goal is to reduce the hassle of dealing with data sources as much as possible.
+To this end, you actually never have to deal with integrating
+the data sources directly - SID handles all of that behind the scenes.
+
+Core to this is the concept of a *SID account*. With SID, each end user has their own SID account,
+just like they have their own Google account or Facebook account. Within their SID account,
+they can configure the data sources that they want to use, 
+and SID will take of synchronizing these sources and creating an index of the data.
+
+Then, when a user wishes to use your app, they will be asked to log in to their SID account,
+and your application will be authorized. 
+This gives you access to SID's API endpoints, such as the query endpoint,
+where you can retrieve the indexed data.
+
+You can try out the experience by going to our [demo app](https://demo.sid.ai).
+
+### Why SID accounts?
+There are two key benefits for using SID accounts, as opposed to a fully white-labeled solution:
+
+For you, it means that you don't have to go through the hassle of being
+verified by each data source individually.
+In the case of google drive and gmail, for instance, 
+this process takes weeks and requires a detailed security review of your application.
+
+For your users, if they already have a SID account,
+they can immediately get started with the full feature set of you application,
+without having to go through the hassle of setting up each data source individually.
+
+## What's next?
 <CardGroup cols={2}>
-  <Card
-    title="Quickstart"
-    icon="rocket"
-    href="/start/quickstart"
-  >
-    Try out the API with your own account
-  </Card>
-  <Card
-    title="Prompting"
-    icon="image"
-    href="/build/prompts"
-  >
-    Learn what prompts work best with the context retrieved by SID
-  </Card>
-</CardGroup>
-
-## Set up Authorization
-
-Learn how to set up the authorization flow in your app to allow your users to connect their SID accounts.
-
-<CardGroup cols={2}>
-  <Card
-    title="Authorization Flow"
-    icon="key"
-    href="/auth/flow"
-  >
-    Get an overview of the authorization flow and how to implement it
-  </Card>
-  <Card
-    title="Prebuilt Components"
-    icon="code"
-    href="/auth/button"
-  >
-    Use our prebuilt components to allow users to easily connect their SID account
-  </Card>
+<Card
+  title="Quickstart"
+  icon="rocket"
+  href="/start/quickstart"
+>
+  Give the API a try by following the quickstart guide
+</Card>
+<Card
+  title="Integrate SID"
+  icon="circles-overlap"
+  href="/auth/overview"
+>
+  Learn about the steps needed to integrate SID into your application
+</Card>
 </CardGroup>
