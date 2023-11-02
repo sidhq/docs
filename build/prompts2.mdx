@@ -1,0 +1,92 @@
+---
+title: 'Prompt Engineering'
+description: 'Learn what prompts work best with context retrieved from SID'
+---
+## Prompt
+To use the results from SID in your app, most adopt the following flow:
+1. Get input from the user. Usually, this is from a chat interface like ChatGPT.
+2. Forward that input to our [`query` endpoint](/api-reference/endpoint/query) to get relevant context.
+3. Feed the results and the original user request to a language model like ChatGPT.
+
+### Using Query Results as Context
+Once you have received the results from the [`query` endpoint](/api-reference/endpoint/query) 
+you will want to feed them as context to a language model like ChatGPT. We've collected a few tips on how to do this well.
+
+The most important thing is the prompt. You need to inform the model that it can now access the personal files a user has connected,
+and can use that information to answer the request. We suggest adding a section with `Instructions` and a section with `Context` to your prompt.
+
+In general, if you observe behavior that the model should not exhibit, you can add a section to your prompt that instructs the model to not do that.
+
+<CodeGroup>
+```typescript Chat (GPT-4, GPT-3.5-Turbo)
+import openai
+
+const userInput = "Write a paragraph describing how SID can help developers."
+
+const accessToken = "" // retrieve the access token from wherever you store it, usually a database
+const queryResults = await axios.post("https://api.sid.ai/v1/users/me/query", {query: query, limit: 5}, {headers: {Authorization: `Bearer ${accessToken}`}})
+
+const systemMessage = "You are an expert writer and editor. You hold yourself to high journalistic standards and never invent or misrepresent information. You are provided with a writing task.\n\n" +
+    Instructions: You complete the writing task using the context provided below. Do not say that you do not know or need more information. Be concise and specific. Never repeat yourself. Refrain from using vacuous phrases that do not convey concrete information."
+
+const completion = await openai.chat.completions.create({
+    messages: [{ role: "system", content: systemMessage }, { role: "user", content: "Writing Task: " + userInput + "\n\nContext:\n" + queryResults.results }],
+    model: "gpt-3.5-turbo",
+    max_tokens: 2048,
+});
+
+```
+
+```typescript Instruct (GPT-3.5-Turbo-Instruct)
+import openai
+
+const userInput = "Write a paragraph describing how SID can help developers."
+
+const accessToken = "" // retrieve the access token from wherever you store it, usually a database
+const queryResults = await axios.post("https://api.sid.ai/v1/users/me/query", {query: query, limit: 5}, {headers: {Authorization: `Bearer ${accessToken}`}})
+
+const prompt = 
+\`You are an expert writer and editor. You hold yourself to high journalistic standards and never invent or misrepresent information. You have been given the following writing task.
+
+Writing Task: ${userInput}
+
+Instructions: You complete the writing task using the context provided below. Do not say that you do not know or need more information. Be concise and specific. Never repeat yourself. Refrain from using vacuous phrases that do not convey concrete information.
+
+Context:
+${queryResult.results}
+
+Text:
+\`
+
+const completion = await openai.completions.create({
+    model: 'gpt-3.5-turbo-instruct',
+    prompt: prompt,
+    max_tokens: 2048,
+});
+```
+</CodeGroup>
+
+### Formatting Query Results
+If you're inserting the raw JSON results from the [`query` endpoint](/api-reference/endpoint/query),
+the model will be inclined to writing code instead of text. To circumvent this, we recommend formatting the results as
+plain text or markdown. Here is a helper function that may be useful.
+
+
+<CodeGroup>
+```Typescript
+function formatResultsToMarkdown(results: Result[]): string {
+    if (results.length === 0) {
+        return "- no additional context provided\n";
+    }
+
+    return results.map(result => {
+        const scoreAsPercentage = (result.score * 100).toFixed(2);
+        return `- **${result.title} (Confidence: ${scoreAsPercentage}%):** "${result.text}"`;
+    }).join('\n');
+}
+```
+</CodeGroup>
+
+<Info>
+The [`query` endpoint](/api-reference/endpoint/query) may return an empty results array if there are no relevant results. Be sure to tell the model that no context was found.
+</Info>
