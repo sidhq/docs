@@ -1,0 +1,62 @@
+---
+title: 'Overview'
+description: 'Allow GPT-4 to remember past conversations'
+---
+## Overview
+
+## Get Started
+
+
+### API Keys
+To use SID Memory, you'll need to create an account on our [developer dashboard](https://app.sid.ai)
+and head over to the [API Keys](https://app.sid.ai/api-keys) page to create a new API key.
+
+Make sure to copy the API key and store it in a safe place, as you won't be able to see it again.
+
+### Call the API
+The SID Memory API entirely mirrors the OpenAI API,
+so you only need to make minimal changes to start using it.
+
+Most importantly, you need to change the base URL for your requests.
+Instead of `POST`ing to `https://api.openai.com/v1/chat/completions`, you should make your
+requests to `https://api.sid.ai/v1/memory/chat/completions` instead.
+
+Additionally, you can control the behaviour of the API by passing additional query parameters (discussed below).
+
+<Warning>
+By default, all conversations from requests made through your account are stored in a single database.
+To learn how to segment data between your users, see the [Multi-Tenancy](#multi-tenancy) section below.
+</Warning>
+
+## Query Parameters
+The SID Memory API supports a number of query parameters that allow you to control its behaviour:
+
+### Multi-Tenancy
+By default, all conversations are stored in a single database.
+This means that if you make your application accessible to multiple users,
+conversation data will be shared between them.
+
+To prevent this, the API supports a `namespace` query parameter. Using this parameter,
+you can segment conversations into different databases, making sure that each user
+only has access to their own conversations.
+
+Generally, you should have a unique user ID for each user, which you can then use as the namespace,
+e.g. for a user with ID `user123`, you would make requests to 
+
+```bash
+https://api.sid.ai/v1/memory/chat/completions?namespace=user123
+```
+
+### Commit Timeout
+The `commit_after` query parameter allows you to control after how many seconds a conversation
+is considered complete and should be committed to the database.
+
+The default value is `120`, which means that if a particular conversation is inactive for 2 minutes,
+it will be committed to the database.
+
+If your application has long breaks between messages, you may want to increase this value.
+
+### Chat ID
+By default, the API will use a heuristic to determine which follow-up requests belong to a prior conversation.
+This works well for most applications, but if you want to be more explicit, 
+you can optionally pass a `chat_id` query parameter.

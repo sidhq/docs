@@ -40,6 +40,10 @@
   },
   "tabs": [
     {
+      "name": "SID Memory",
+      "url": "memory"
+    },
+    {
       "name": "API Reference",
       "url": "api-reference"
     }
@@ -84,7 +88,7 @@
       "pages": [
         "build/query",
         "build/custom_data",
-        "build/prompts",
+        "build/prompts2",
         "build/example"
       ]
     },
@@ -96,18 +100,27 @@
       ]
     },
     {
-      "group": "API Documentation",
+      "group": "SID Memory",
       "pages": [
-        "api-reference/authentication"
+        "memory/memory",
+        "memory/packages"
       ]
     },
     {
-      "group": "Endpoints",
+      "group": "SID Connect",
       "pages": [
+        "api-reference/authentication",
         "api-reference/endpoint/query",
         "api-reference/endpoint/custom_insert",
         "api-reference/endpoint/custom_clear",
         "api-reference/endpoint/example"
+      ]
+    },
+    {
+      "group": "SID Memory",
+      "pages": [
+        "api-reference/memory/authentication",
+        "api-reference/memory/chat_completion"
       ]
     }
   ],
