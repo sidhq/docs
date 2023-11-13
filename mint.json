@@ -38,6 +38,9 @@
     "name": "Get Started",
     "url": "https://app.sid.ai"
   },
+  "primaryTab": {
+    "name": "SID Connect"
+  },
   "tabs": [
     {
       "name": "SID Memory",
@@ -60,7 +63,7 @@
       "url": "https://app.sid.ai"
     },
     {
-      "name": "Support Discord",
+      "name": "Discord",
       "icon": "discord",
       "url": "https://discord.gg/57w3hHS4JX"
     }
