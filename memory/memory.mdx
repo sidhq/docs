@@ -34,7 +34,9 @@ and [javascript](/memory/packages#javascript) openai packages.
 Additionally, you can control the behaviour of the API by passing additional query parameters (discussed below).
 
 <Warning>
-By default, all conversations made through your account are stored in a single database.
+By default, all conversations made through your account are stored in a single database,
+meaning that if you make your application accessible to multiple users,
+private conversation data will be shared between them.
 To learn how to segment data between your users, see the [Multi-Tenancy](#multi-tenancy) section below.
 </Warning>
 
