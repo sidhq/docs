@@ -8,6 +8,10 @@ and set them as environment varibles. See the [credentials](/auth/credentials) p
 </Note>
 
 ## Initiate Flow
+
+<img className="block dark:hidden" src="/diagrams/1o-light.svg" />
+<img className="hidden dark:block" src="/diagrams/1o-dark.svg" />
+
 The authorization flow is initiated by redirecting a user to the SID authorization URL, shown below:
 ```bash
 https://me.sid.ai/api/oauth/authorize
@@ -96,6 +100,10 @@ However, dynamic query parameters may be added in the future, so it is recommend
 </Note>
 
 ## Callback
+
+<img className="block dark:hidden" src="/diagrams/2o-light.svg" />
+<img className="hidden dark:block" src="/diagrams/2o-dark.svg" />
+
 The authorization URL will redirect the user to their SID account, 
 where they will be prompted to log in and grant access permissions to your application.
 Once they have done so, they will be redirected back to your application with an authorization code. 
@@ -189,6 +197,10 @@ Do _not_ persist the authorization code. It is only valid for a few minutes, and
 
 
 ## Token Exchange
+
+<img className="block dark:hidden" src="/diagrams/3o-light.svg" />
+<img className="hidden dark:block" src="/diagrams/3o-dark.svg" />
+
 The authorization code received in the callback is only valid for a short time, and must be converted
 into an access token and a refresh token using a token exchange, as shown below:
 
