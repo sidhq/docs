@@ -1,23 +1,20 @@
 ---
-title: "Chat Completion"
-api: "POST https://api.sid.ai/v1/memory/chat/completions"
-description: "Creates a model response for the given chat conversation"
+title: "Query Chat Completion"
+api: "POST https://api.sid.ai/v1/users/me/chat/completions"
+description: "Create chat completions augmented with information from your data sources."
 ---
+The query chat completion API fully integrates the SID query API with the OpenAI chat completions API.
+It allows you to create a model response for the given chat conversation, 
+automatically using the SID query API to retrieve relevant information from your data sources.
 
 ### Body & Response
 The format of the request and response bodies is exactly the same as for the OpenAI chat completions API. 
 See [here](https://platform.openai.com/docs/api-reference/chat/create) for more details.
 
-### Query Parameters
-<ParamField body="namespace" type="string" default={""}>
-  The namespace from which to query the memory and where conversations are persisted.
-  Defaults to the global namespace.
-</ParamField>
-
 <RequestExample>
 
 ```bash Example Request
-curl -X POST 'https://api.sid.ai/v1/memory/chat/completions?namespace=user123' \
+curl -X POST 'https://api.sid.ai/v1/users/me/chat/completions' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer <access_token>' \
 --data-raw '{
@@ -29,7 +26,7 @@ curl -X POST 'https://api.sid.ai/v1/memory/chat/completions?namespace=user123' \
       },
       {
         "role": "user",
-        "content": "Hello!"
+        "content": "What does SID.ai do?"
       }
     ]
 }'
@@ -50,7 +47,7 @@ curl -X POST 'https://api.sid.ai/v1/memory/chat/completions?namespace=user123' \
     "index": 0,
     "message": {
       "role": "assistant",
-      "content": "\n\nHello there, how may I assist you today?",
+      "content": "Based on the provided information, SID.ai is a company that offers a solution for developers to easily integrate all their customer's data",
     },
     "finish_reason": "stop"
   }],
