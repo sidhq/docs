@@ -1,0 +1,42 @@
+---
+title: 'Packages'
+description: 'Use pre-built packages to quickly get started with the SID API'
+---
+Currently, we have a Python package available.
+We are working on packages for other languages,
+and will update this page as they become available.
+
+## Python
+First, install the package using pip:
+```bash
+pip install sidai
+```
+Then, in your Python code:
+
+```python
+from sidai.connect import SIDConnect, CustomItem
+
+sid = SIDConnect()
+
+# User access token obtained through auth flow
+token = '<TOKEN>'
+
+# Make a query
+query_response = sid.query(token=token, query="What does SID do?")
+for snippet in query_response.results:
+    print(snippet.text)
+
+# Get an example
+example_response = sid.example(token=token, usage='question')
+print(example_response.result.text)
+
+# Insert custom items
+items = [
+    CustomItem(name=f'item{i}', text=f'item{i} description') 
+    for i in range(10)
+]
+sid.insert_custom(token=token, items=items)
+
+# Clear custom items
+sid.clear_custom(token=token)
+```

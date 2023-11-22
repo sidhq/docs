@@ -92,7 +92,8 @@
         "build/query",
         "build/custom_data",
         "build/prompts2",
-        "build/example"
+        "build/example",
+        "build/packages"
       ]
     },
     {
