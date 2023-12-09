@@ -7,24 +7,24 @@ description: "Query for text in the user's connected integrations."
 ### Body
 
 <ParamField body="query" type="string" required>
-  This is the search term that you want to query for. 
-  It can be any kind of text, such as a question, a phrase, or a sentence.
+  The search term to query for. 
+  It can be any kind of text, such as a few keywords, a question, or a phrase.
 </ParamField>
 
 <ParamField body="limit" type="number" default={10}>
-  A number that indicates how many results you want to receive at most.
+  The maximum number of results to return.
 </ParamField>
 
-<ParamField body="context_size" type="number" default={0}>
+{/* <ParamField body="context_size" type="number" default={0}>
   The maximum number of predecessor and successor chunks to fetch for each result. 
   For example, a value of 2 would fetch two predecessor and two successor chunks for each result. 
   A value of 0 would fetch no context chunks.
-</ParamField>
+</ParamField> */}
 
 <ParamField body="query_processing" type="string" default={"standard"}>
   What level of preprocessing to apply to the query. Valid values are `standard` and `extended`.
-  Using `extended` mode will improve the quality of results 
-  for queries that are questions or phrases, at the cost of additional latency.
+  Using `extended` mode may improve the quality of results 
+  for complex queries, at the cost of additional latency.
 </ParamField>
 
 ### Response
@@ -45,12 +45,12 @@ description: "Query for text in the user's connected integrations."
   <ResponseField name="text" type="string">
     The raw text of the result. This is the text that was indexed by the system, and is what should be processed further by the client.
   </ResponseField>
-  <ResponseField name="predecessors" type="[string]">
+  {/* <ResponseField name="predecessors" type="[string]">
     The raw text of the predecessor chunks of the result. Only returned if `context_size` is greater than 0.
   </ResponseField>
   <ResponseField name="successors" type="[string]">
     The raw text of the successor chunks of the result. Only returned if `context_size` is greater than 0.
-  </ResponseField>
+  </ResponseField> */}
   </Expandable>
 </ResponseField>
 
@@ -61,7 +61,15 @@ description: "Query for text in the user's connected integrations."
   <Expandable title="Toggle object">
 
   <ResponseField name="sync_in_progress" type="boolean">
-    Indicates whether the system is currently syncing a user integration. This can be used to indicate to a user that results may be incomplete.
+    Indicates whether the system is currently syncing a user integration.
+    This can be used to indicate to a user that results may be incomplete.
+  </ResponseField>
+
+  <ResponseField name="last_sync_completed_at" type="string">
+    Indicates the time at which the last sync (for any of the user's integrations) completed. 
+    Note that due to the incremental nature of syncing,
+    results may be available event before any syncs have finished.
+    `null` if no syncs have completed yet.
   </ResponseField>
 
   </Expandable>
@@ -77,7 +85,6 @@ curl -X POST 'https://api.sid.ai/v1/users/me/query' \
 --data-raw '{
     "query": "What does SID do?",
     "limit": 10,
-    "context_size": 1,
     "query_processing": "standard"
 }'
 ```
@@ -93,13 +100,7 @@ curl -X POST 'https://api.sid.ai/v1/users/me/query' \
       "score": 0.94,
       "title": "SID Company Profile",
       "kind": "gdrive",
-      "text": "SID is a company that makes software for searching and organizing information. ...",
-      "predecessors": [
-        "..."
-      ],
-      "successors": [
-        "..."
-      ]
+      "text": "SID is a company that makes software for searching and organizing information. ..."
     },
     /* ... */
   ],
