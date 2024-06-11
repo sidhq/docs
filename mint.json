@@ -45,6 +45,10 @@
     {
       "name": "API reference",
       "url": "api-reference"
+    },
+    {
+      "name": "Writing",
+      "url": "writing"
     }
   ],
   "anchors": [
@@ -106,6 +110,18 @@
       "group": "AUTHORIZATION",
       "pages": [
         "authorization/overview"
+      ]
+    },
+    {
+      "group": "2024",
+      "pages": [
+        "writing/amdahl"
+      ]
+    },
+    {
+      "group": "2023",
+      "pages": [
+        "writing/ycombinator"
       ]
     }
   ],
