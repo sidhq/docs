@@ -1,0 +1,19 @@
+---
+title: 'Core concepts'
+description: 'Learn about the basics of SID'
+---
+## Capsules
+Capsules are where data is stored – think of it like a mixture between a database and an S3 bucket.
+Each one is assigned a unique ID like `irrotational-airfoil-b2a3` and is hosted at: `https://irrotational-airfoil-b2a3.sid.ai`.
+Data can be added through the dashboard or programmatically with the API.
+
+## Queries
+A query is the primary way to acces information in a capsule. 
+They are designed to be easy for *LLMs to write*. 
+Every query has three parts:
+- `query`: natural language query, like "What is the capital of France?"
+- `wishlist`: desired metadata filters – they can be completely free-form and don't need to exist in the data
+- `limit`: the maximum number of results to return
+
+## API keys
+API keys are used to authenticate requests to the API. You can create an API key in the [dashboard](https://dashboard.sid.ai).

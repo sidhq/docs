@@ -1,43 +1,49 @@
 ---
-title: 'Try the API'
-description: 'Experiment with the SID API on your own data'
+title: 'Quickstart'
+description: 'Start with the basics'
 ---
-## Overview
-The purpose of this quickstart is to allow you to try the API with minimal initial setup.
-You'll connect integrations such as google drive and notion to your personal SID account and make API calls for your own data.
+SID breaks down into two atomic units:
+ - **Capsule**: a collection of data
+ - **Query**: a way to access that data
 
-## Set up an Account and Get a Token
-Head over to our [demo](https://demo.sid.ai) and click the 'Continue with SID' button.
-You will be taken to the SID login page, where you can create an account or log in with an existing one.
+## Your first query
+We're going to create our first capsule later.
+First, let's query a capsule that already exists.
+Here's one that contains all of Wikipedia:
 
-Once you're logged in, you'll be able to connect integrations to your account.
-Some integrations take a longer time to fully index than others, so we recommend starting with Google Drive.
+<CodeGroup>
+```bash curl
+curl -X POST 'https://slow-winds-a1b2.sid.ai/v1/query' \
+--header 'Content-Type: application/json' \
+--body '{"query": "Who was John von Neumann?", "wishlist": {}, "limit": 3}' \
+```
+</CodeGroup>
+Pretty neat! The response should look something like this:
+```json
+{}
+```
+If you want to learn more about how a query works and what all the parameters mean – like `wishlist` and `limit`,
+please check out ...
+{/* TODO: add the right link */}
+<Note>`slow-winds-a1b2` is a public capsule, so no API key is required. If you want to query a private capsule, you'll need to create an API key in the dashboard.</Note>
 
-After you've connected your integrations, click on the 'return' button at the bottom of the page.
-You'll be asked to give consent to the demo application, and then redirected back to the demo page.
+## Your first capsule
+The easiest way to create a capsule is using the dashboard. 
+Please remember the ID of the capsule you created – you can always look it up in the dashboard.
+It will look something like this: `irrotational-airfoil-b2a3`.
+<Steps>
+<Step title="Open the dashboard">
+Go to the [dashboard](https://dashboard.sid.ai).
+</Step>
+<Step title="Create a new capsule">
+Navigate to the "Home" tab and click on the "Create a new capsule" button. Remember the unique ID of the capsule you created.
+</Step>
+<Step title="Add data">
+Add some data to the capsule – like a file.
+</Step>
+<Step title="Create an API key" icon="circle-exclamation">
+Navigate to the "API keys" tab and click on the "Create an API key" button.
+</Step>
+</Steps>
 
-You should now see a token in the top right corner of the page.
-This is your access token, which you will be able to use in the following steps.
-
-<Info>
-This token is only valid for a day, and is only meant for testing purposes.
-</Info>
-<Info>
-If the token is expired, you can get a new one by disconnecting and reconnecting your SID account,
-or by making a request with the demo. Either will refresh the token.
-</Info>
-
-## Call the API
-Head over to the [query](/api-reference/endpoint/query) page in the API reference. 
-You'll see an interface to make API calls right in the browser. 
-Simply add your token to the `Authorization` header, add a query to the `body`, and hit send.
-
-To start with, try simply querying for the content of one of the documents from your connected integrations.
-For example, if you connected your Google Drive account, try querying for the title of a Google Doc or PDF.
-
-## A Proper Setup
-Obviously, in a real deployment you wouldn't want to just query your own data.
-To allow your users to connect their own SID account,
-you'll need to set up a proper [authorization flow](/auth/flow).
-This will allow you to programatically obtain an access token for your users, 
-and make API calls on their behalf.
+{/* TODO: add the code here */}

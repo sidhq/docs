@@ -1,0 +1,26 @@
+---
+title: 'Overview'
+description: 'Getting API keys'
+---
+The SID API is secured using API keys.
+You can create an API key in the dashboard.
+
+<Steps>
+<Step title="Create an API key">
+Navigate to the "API keys" tab in the dashboard and click on the "Create an API key" button.
+API keys look like: `sid-sk-a81239asda91281`.
+</Step>
+<Step title="Use the API key">
+<CodeGroup>
+```bash curl
+curl -X POST 'https://slow-winds-a1b2.sid.ai/v1/query' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer <API_KEY>' \
+--body '{"query": "Who was John von Neumann?", "wishlist": {}, "limit": 3}' \
+```
+</CodeGroup>
+</Step>
+</Steps>
+
+<Warning>API keys should be kept secret and only used
+in a trusted environment (i.e. not in client-side code).</Warning>

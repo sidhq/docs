@@ -2,15 +2,15 @@
   "$schema": "https://mintlify.com/schema.json",
   "name": "Documentation",
   "logo": {
-    "dark": "/logo/dark.svg",
-    "light": "/logo/light.svg"
+    "dark": "/_img/logo/dark.svg",
+    "light": "/_img/logo/light.svg"
   },
   "api": {
     "auth": {
       "method": "bearer"
     }
   },
-  "favicon": "/favicon-32x32.png",
+  "favicon": "/_img/favicon-32x32.png",
   "feedback": {
     "thumbsRating": true,
     "suggestEdit": true,
@@ -30,24 +30,24 @@
   },
   "topbarLinks": [
     {
-      "name": "Support",
+      "name": "Help",
       "url": "mailto:support@sid.ai"
     }
   ],
   "topbarCtaButton": {
-    "name": "Get Started",
+    "name": "Dashboard",
     "url": "https://app.sid.ai"
   },
   "primaryTab": {
-    "name": "SID Connect"
+    "name": "Capsules"
   },
   "tabs": [
     {
-      "name": "SID Memory",
-      "url": "memory"
+      "name": "Integrations",
+      "url": "integrations"
     },
     {
-      "name": "API Reference",
+      "name": "API reference",
       "url": "api-reference"
     }
   ],
@@ -58,9 +58,9 @@
       "url": "https://sid.ai"
     },
     {
-      "name": "Dev Dashboard",
+      "name": "Dashboard",
       "icon": "code",
-      "url": "https://app.sid.ai"
+      "url": "https://dashboard.sid.ai"
     },
     {
       "name": "Discord",
@@ -70,48 +70,71 @@
   ],
   "navigation": [
     {
-      "group": "Basics",
+      "group": "GET STARTED",
       "pages": [
-        "start/landing",
-        "start/introduction",
-        "start/quickstart"
+        "start/overview",
+        "start/quickstart",
+        "start/core-concepts"
       ]
     },
     {
-      "group": "Authorization",
+      "group": "USES",
       "pages": [
-        "auth/overview",
-        "auth/credentials",
-        "auth/flow",
-        "auth/revoke"
+        "uses/agents",
+        "uses/rag"
       ]
     },
     {
-      "group": "Build",
+      "group": "CAPSULES",
       "pages": [
-        "build/query",
-        "build/custom_data",
-        "build/prompts2",
-        "build/example",
-        "build/packages"
+        "capsules/overview",
+        "capsules/add-data-with-dashboard",
+        "capsules/add-data-with-api"
       ]
     },
     {
-      "group": "Examples",
+      "group": "QUERIES",
       "pages": [
-        "examples/rag-simple",
-        "examples/rag-memory"
+        "queries/overview",
+        "queries/wishlist",
+        "queries/prompting"
       ]
     },
     {
-      "group": "SID Memory",
+      "group": "AUTHORIZATION",
       "pages": [
-        "memory/memory",
-        "memory/packages"
+        "authorization/overview"
       ]
     },
     {
-      "group": "SID Connect",
+      "group": "GET STARTED",
+      "pages": [
+        "integrations/start/landing",
+        "integrations/start/introduction",
+        "integrations/start/quickstart"
+      ]
+    },
+    {
+      "group": "AUTHORIZATION",
+      "pages": [
+        "integrations/auth/overview",
+        "integrations/auth/credentials",
+        "integrations/auth/flow",
+        "integrations/auth/revoke"
+      ]
+    },
+    {
+      "group": "BUILD",
+      "pages": [
+        "integrations/build/query",
+        "integrations/build/custom_data",
+        "integrations/build/prompts2",
+        "integrations/build/example",
+        "integrations/build/packages"
+      ]
+    },
+    {
+      "group": "INTEGRATIONS",
       "pages": [
         "api-reference/authentication",
         "api-reference/endpoint/query",
@@ -120,17 +143,10 @@
         "api-reference/endpoint/custom_clear",
         "api-reference/endpoint/example"
       ]
-    },
-    {
-      "group": "SID Memory",
-      "pages": [
-        "api-reference/memory/authentication",
-        "api-reference/memory/chat_completion"
-      ]
     }
   ],
   "footerSocials": {
-    "twitter": "https://twitter.com/try_sid",
+    "twitter": "https://x.com/try_sid",
     "github": "https://github.com/sidhq",
     "linkedin": "https://www.linkedin.com/company/92711502",
     "discord": "https://discord.gg/57w3hHS4JX"

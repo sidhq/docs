@@ -1,0 +1,26 @@
+---
+title: 'Metadata wishlist'
+description: 'Learn how to use the wishlist'
+---
+Sometimes, you want to restrict which items are returned by a query. For example,
+you only want the items written before 2024, that have "manifesto" in the title,
+or that were authored by the "John von Neumann."
+
+## What is a "wishlist"
+Metadata filters are easy if the data that you're working with
+is very homogenous. Sadly, few real-world datasets are.
+
+The `wishlist` is a way to specify metadata filters
+that get applied on a best-effort basis. For example, if you want
+documents authored by John von Neumann. You can just set the `author` filter
+to "John von Neumann". Amazingly, this will work even if no
+items have the `author` field, but instead have a `creator`,
+`created_by`, `authored_by`, or `author_` fields. We match
+them at query time.
+
+**This doesn't just make it easier for humans to write metadata
+filters, it gets easier for LLMs too.**
+This is really important. You can let an LLM hallucinate
+any parameters it wants, and we match it to metadata
+that actually exists. No knowledge about the data is required.
+
