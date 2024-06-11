@@ -9,6 +9,15 @@ Every query has three parts:
 - `wishlist`: metadata filters, find out more about [wishlists](/queries/wishlist)
 - `limit`: the maximum number of results to return
 
+A simple query request:
+```json Query request
+{
+    "query": "What is the capital of France?",
+    "wishlist": {}, // see article on wishlists
+    "limit": 10
+}
+```
+
 ## How SID runs queries
 The easiest type of query is a semantic query,
 but for most production systems, many 
@@ -43,7 +52,8 @@ flowchart LR
 ```
 
 ### What a query returns
-A query will return a list of objects that are subsections of the original data (aka chunks).
+A query will return a list of objects that are subsections of the original data (aka. chunks).
+The response will have at most as many items as specified in the `limit` parameter.
 ```json Query response
 [
     {
@@ -62,4 +72,5 @@ A query will return a list of objects that are subsections of the original data 
     {...}
 ]
 ```
-
+For more details, please check out the [API reference](/api-reference/endpoint/query).
+<Info>The query API may return no or fewer items than the `limit` parameter if the scores are too low.</Info>
