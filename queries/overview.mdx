@@ -40,5 +40,26 @@ flowchart LR
     Router --> semantic[Semantic query]
     Router --> time[Time-based query]
     Router --> other[...]
-
 ```
+
+### What a query returns
+A query will return a list of objects that are subsections of the original data (aka chunks).
+```json Query response
+[
+    {
+        "item_id": "401ebb14-d0a1-4244-b720-7f4fcdb02230", // can be used to delete the item
+        "idx": 8, // index of the item in the original document/data
+        "content": "The treaty defines...",
+        "uri": "https://example.com/document/url/for/displaying", // link to the original document
+        "kind": "file",
+        "file_name": "tax-treaty-table-2.pdf",
+        "file_type": "application/pdf",
+        "time_added": "2024-05-22T23:27:56.609683Z",
+        "time_authored": "2024-01-13T13:24:11.987324Z",
+        "score": 0.5021019,
+        "metadata": null
+    },
+    {...}
+]
+```
+
