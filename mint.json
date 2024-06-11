@@ -39,13 +39,9 @@
     "url": "https://app.sid.ai"
   },
   "primaryTab": {
-    "name": "Capsules"
+    "name": "Documentation"
   },
   "tabs": [
-    {
-      "name": "Integrations",
-      "url": "integrations"
-    },
     {
       "name": "API reference",
       "url": "api-reference"
@@ -101,47 +97,15 @@
       ]
     },
     {
+      "group": "INTEGRATIONS",
+      "pages": [
+        "integrations/overview"
+      ]
+    },
+    {
       "group": "AUTHORIZATION",
       "pages": [
         "authorization/overview"
-      ]
-    },
-    {
-      "group": "GET STARTED",
-      "pages": [
-        "integrations/start/landing",
-        "integrations/start/introduction",
-        "integrations/start/quickstart"
-      ]
-    },
-    {
-      "group": "AUTHORIZATION",
-      "pages": [
-        "integrations/auth/overview",
-        "integrations/auth/credentials",
-        "integrations/auth/flow",
-        "integrations/auth/revoke"
-      ]
-    },
-    {
-      "group": "BUILD",
-      "pages": [
-        "integrations/build/query",
-        "integrations/build/custom_data",
-        "integrations/build/prompts2",
-        "integrations/build/example",
-        "integrations/build/packages"
-      ]
-    },
-    {
-      "group": "INTEGRATIONS",
-      "pages": [
-        "api-reference/authentication",
-        "api-reference/endpoint/query",
-        "api-reference/endpoint/chat_completion",
-        "api-reference/endpoint/custom_insert",
-        "api-reference/endpoint/custom_clear",
-        "api-reference/endpoint/example"
       ]
     }
   ],
