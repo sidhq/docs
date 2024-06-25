@@ -10,6 +10,8 @@
       "method": "bearer"
     }
   },
+  "theme": "quill",
+  "openapi": ["/openapi.yml", "/openai-openapi.yml"],
   "favicon": "/_img/favicon-32x32.png",
   "feedback": {
     "thumbsRating": true,
@@ -17,11 +19,12 @@
     "raiseIssue": true
   },
   "colors": {
-    "primary": "#F3E6D3",
-    "light": "#F3E6D3",
-    "dark": "#0C0C0C",
+    "primary": "#1C1917",
+    "light": "#FAFAF9",
+    "dark": "#292524", 
     "background": {
-      "dark": "#0C0C0C"
+      "dark": "#000007",
+      "light": "#FFFFFF"
     },
     "anchors": {
       "from": "#FF7F57",
@@ -36,7 +39,7 @@
   ],
   "topbarCtaButton": {
     "name": "Dashboard",
-    "url": "https://app.sid.ai"
+    "url": "https://dashboard.sid.ai/"
   },
   "primaryTab": {
     "name": "Documentation"
@@ -61,11 +64,6 @@
       "name": "Dashboard",
       "icon": "code",
       "url": "https://dashboard.sid.ai"
-    },
-    {
-      "name": "Discord",
-      "icon": "discord",
-      "url": "https://discord.gg/57w3hHS4JX"
     }
   ],
   "navigation": [
@@ -113,6 +111,27 @@
       ]
     },
     {
+      "group": "QUERY",
+      "pages": [
+        "api-reference/query/query-capsule"
+      ]
+    },
+    {
+      "group": "CHAT",
+      "pages": [
+        "api-reference/chat/chat-with-a-capsule"
+      ]
+    },
+    {
+      "group": "DATA",
+      "pages": [
+        "api-reference/data/add-file-to-capsule",
+        "api-reference/data/add-text-to-capsule",
+        "api-reference/data/list-data-in-capsule",
+        "api-reference/data/delete-file-by-id-from-capsule"
+      ]
+    },
+    {
       "group": "2024",
       "pages": [
         "writing/amdahl"
@@ -128,13 +147,30 @@
   "footerSocials": {
     "twitter": "https://x.com/try_sid",
     "github": "https://github.com/sidhq",
-    "linkedin": "https://www.linkedin.com/company/92711502",
-    "discord": "https://discord.gg/57w3hHS4JX"
+    "linkedin": "https://www.linkedin.com/company/92711502"
   },
   "analytics": {
     "posthog": {
         "apiKey": "phc_JctZoSlHlfOoyucj917iYcfjiJrXKt9hrMSZNmNHlCI",
         "apiHost": "https://eu.posthog.com"
     }
-  }
+  },
+  "redirects": [
+    {
+      "source": "/api-reference/endpoint/query",
+      "destination": "/api-reference/query/query-capsule"
+    },
+    {
+      "source": "/api-reference/endpoint/custom_insert",
+      "destination": "/api-reference/data/add-text-to-capsule"
+    },
+    {
+      "source": "/api-reference/endpoint/custom_clear",
+      "destination": "/api-reference/data/delete-file-by-id-from-capsule"
+    },
+    {
+      "source": "/api-reference/endpoint/example",
+      "destination": "/api-reference/data/add-file-to-capsule"
+    }
+  ]
 }

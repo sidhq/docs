@@ -2,6 +2,66 @@
 title: 'Add data with the API'
 description: 'Learn how to add data to a capsule'
 ---
+To see an in-detail version of the API, please refer to the [API reference](/api-reference/data/).
 
-Have a look at the API reference for the...
-{/* TODO: add the right link */}
+You can add any file or text content to your capsule using API. Every feature that is available in the [dashboard](https://dashboard.sid.ai/) is also available through the API.
+This allows you to build out custom data integrations with your application and file or text-like knowledge sources.
+
+
+<Info>Data may take a few seconds to be indexed and available for querying.</Info>
+
+
+{/* # Adding Data to a Capsule
+
+You can add data to your capsule using the Capsules API. This guide covers how to add files and text content to your capsule.
+
+<Callout type="info">
+  Make sure you have your API key ready. You can generate one in the [dashboard](https://dashboard.sid.ai/).
+</Callout>
+
+## Adding a File
+
+To add a file to your capsule, use the `/data/file` endpoint:
+```bash
+curl -X POST https://{capsule-id}.sid.ai/data/file \
+-H "Authorization: Bearer YOUR_API_KEY" \
+-F "file=@/path/to/your/file.pdf" \
+-F "metadata={\"key\":\"value\"}" \
+-F "time_authored=2023-04-01T12:00:00Z" \
+-F "uri=https://example.com/file.pdf"
+```
+
+### Request Parameters
+
+- `file`: The file you want to add (required)
+- `metadata`: JSON string of metadata associated with the file (optional)
+- `time_authored`: The original authoring time of the file in RFC3339 format (optional)
+- `uri`: URI associated with the file (optional)
+
+## Adding Text Content
+
+To add text content to your capsule, use the `/data/text` endpoint:
+
+```bash
+curl -X POST https://{capsule-id}.sid.ai/data/text \
+-H "Authorization: Bearer YOUR_API_KEY" \
+-H "Content-Type: application/x-www-form-urlencoded" \
+-d "content=Your text content here" \
+-d "metadata={\"key\":\"value\"}" \
+-d "time_authored=2023-04-01T12:00:00Z" \
+-d "uri=https://example.com/text-source"
+```
+
+### Request Parameters
+
+- `content`: The text content you want to add (required)
+- `metadata`: JSON string of metadata associated with the text (optional)
+- `time_authored`: The original authoring time of the text in RFC3339 format (optional)
+- `uri`: URI associated with the text (optional)
+
+## Response
+
+Both endpoints return a `202 Accepted` status code upon successful submission.
+
+
+For more details on managing your capsule data, including listing and deleting items, refer to the [Capsule Data Management](/capsules/manage-data) guide. */}

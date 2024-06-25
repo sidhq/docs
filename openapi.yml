@@ -1,0 +1,265 @@
+openapi: 3.0.0
+info:
+  title: Capsules API
+  version: 1.0.0
+  description: API for managing and interacting with capsules
+
+servers:
+  - url: https://{capsule-id}.sid.ai
+    variables:
+      capsule-id:
+        default: capsule-id
+        description: The ID of the capsule
+
+paths:
+  /data/file:
+    post:
+      summary: Add file to capsule
+      tags:
+        - Data
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: The file to be added to the capsule
+                metadata:
+                  type: string
+                  description: JSON string of metadata associated with the file
+                time_authored:
+                  type: string
+                  format: date-time
+                  description: The time when the file was originally authored (RFC3339 format)
+                uri:
+                  type: string
+                  description: URI associated with the file
+              required:
+                - file
+      responses:
+        '202':
+          description: File accepted
+        '400':
+          description: Invalid request
+
+
+  /data/text:
+    post:
+      summary: Add text to capsule
+      tags:
+        - Data
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+                  description: Text content to add to the capsule
+                metadata:
+                  type: string
+                  description: JSON string of metadata associated with the text
+                time_authored:
+                  type: string
+                  format: date-time
+                  description: The time when the text was originally authored (RFC3339 format)
+                uri:
+                  type: string
+                  description: URI associated with the text
+              required:
+                - content
+      responses:
+        '202':
+          description: Text accepted
+        '400':
+          description: Invalid request
+
+  /data:
+    get:
+      summary: List items in capsule
+      tags:
+        - Data
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ListItemResult'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal server error
+
+    delete:
+      summary: Delete file by id from capsule
+      tags:
+        - Data
+      parameters:
+        - in: query
+          name: item_id
+          required: true
+          schema:
+            type: string
+          description: The ID of the item to be deleted from the capsule
+      responses:
+        '204':
+          description: Item deleted successfully
+        '400':
+          description: Bad request
+        '500':
+          description: Internal server error
+
+  /query:
+    post:
+      summary: Query capsule
+      tags:
+        - Query
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QueryRequest'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/QueryResult'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal server error
+
+  /chat/completions:
+    post:
+      summary: Chat with a capsule
+      tags:
+        - Chat
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChatCompletionRequest'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '500':
+          description: Internal server error
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Bearer authentication header of the form Bearer `<API_KEY>`. API keys can be generated in the [dashboard](https://dashboard.sid.ai/).
+  schemas:
+    ListItemResult:
+      type: object
+      properties:
+        item_id:
+          type: string
+          description: Unique identifier for the item
+        kind:
+          type: string
+          description: Type of the item (e.g., 'file' or 'text')
+        uri:
+          type: string
+          description: URI associated with the item
+        time_added:
+          type: string
+          format: date-time
+          description: Timestamp when the item was added to the capsule
+        time_authored:
+          type: string
+          format: date-time
+          description: Timestamp when the item was originally authored
+        metadata:
+          type: object
+          description: Additional metadata associated with the item
+
+    QueryRequest:
+      type: object
+      properties:
+        query:
+          type: string
+          description: The search query string
+        limit:
+          type: integer
+          description: Maximum number of results to return
+        wishlist:
+          type: object
+          description: Additional filtering criteria for the query
+      required:
+        - query
+
+    QueryResult:
+      type: object
+      properties:
+        item_id:
+          type: string
+          description: Unique identifier for the item
+        idx:
+          type: integer
+          description: Index of the chunk within the item
+        content:
+          type: string
+          description: Content of the chunk
+        uri:
+          type: string
+          description: URI associated with the item
+        kind:
+          type: string
+          description: Type of the item (e.g., 'file' or 'text')
+        file_name:
+          type: string
+          description: Name of the file (for file items)
+        file_type:
+          type: string
+          description: MIME type of the file (for file items)
+        time_added:
+          type: string
+          format: date-time
+          description: Timestamp when the item was added to the capsule
+        time_authored:
+          type: string
+          format: date-time
+          description: Timestamp when the item was originally authored
+        score:
+          type: number
+          format: float
+          description: Relevance score of the result
+        metadata:
+          type: object
+          description: Additional metadata associated with the item
+
+    ChatCompletionRequest:
+      type: object
+      properties:
+        messages:
+          type: array
+          description: Array of messages in the conversation
+          items:
+            type: object
+            properties:
+              role:
+                type: string
+                description: Role of the message sender (e.g., 'user' or 'assistant')
+              content:
+                type: string
+                description: Content of the message
+
+security:
+  - bearerAuth: []

@@ -61,3 +61,17 @@ You can also use the following comparison operators:
 
 If there are multiple conflicting conditions, the first one will be used.
 
+## Enforcing metadata filters
+In some cases, for example when using metadata distinguish between users, it makes sense to enforce a filter.
+To do that, you can set `$strict` to `true` in the metadata filter. 
+
+```json
+{
+    "$and": [
+        'lang': {'$eq': 'en', '$strict': true},
+        'topic': {'$in': ['thermodynamics', 'radiation']},
+        'time_added': {'$gte': '2023-01-01T00:00:00Z', '$lt': '2024-01-01T00:00:00Z'}
+    ],
+
+}
+

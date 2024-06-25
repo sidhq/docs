@@ -18,8 +18,10 @@ You can add information by ingesting files, raw text or syncing data from other 
 The simplest way to do this is using the [dashboard](https://dashboard.sid.ai), but most production use cases will use the API.
 
 When adding data to a capsule it automatically gets broken down into smaller chunks
-to make it searchable. SID extracts metadata information. If you want,
-you can add your own metadata as well.
+to make it searchable. SID extracts some metadata that is available from parsing the file, but you can add your own metadata as well.
+
+## Retrieving data for RAG
+To retrieve data for RAG – or any other use case – you can use the [query](/api-reference/query/query-capsule) or [chat](/api-reference/chat/chat-with-a-capsule) endpoints.
 
 <Info>Data may take a few seconds to be indexed and available for querying.</Info>
 
