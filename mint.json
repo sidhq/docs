@@ -76,13 +76,6 @@
       ]
     },
     {
-      "group": "USES",
-      "pages": [
-        "uses/agents",
-        "uses/rag"
-      ]
-    },
-    {
       "group": "CAPSULES",
       "pages": [
         "capsules/overview",
