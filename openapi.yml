@@ -98,7 +98,7 @@ paths:
           description: Internal server error
 
     delete:
-      summary: Delete file by id from capsule
+      summary: Delete file from capsule
       tags:
         - Data
       parameters:

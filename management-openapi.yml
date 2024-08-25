@@ -1,0 +1,80 @@
+openapi: 3.0.0
+info:
+  title: Management API
+  version: 1.0.0
+  description: API for managing capsules
+
+servers:
+  - url: https://management.sid.ai/api/v1
+
+paths:
+  /capsules:
+    post:
+      summary: Create a new capsule
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Name of the capsule. Doesn't have to be unique. 
+              required:
+                - name
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    description: The name of the capsule. Identical to the name provided in the request body if request was successful.
+                  capsule_id:
+                    type: string
+                    description: The unique ID of the capsule. Use this ID to make requests to the API. It should look something like `irrotational-airfoil`.
+                required:
+                  - name
+                  - capsule_id
+        '400':
+          description: Bad request
+        '500':
+          description: Internal server error
+
+    delete:
+      summary: Delete a capsule
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                capsule_id:
+                  type: string
+              required:
+                - capsule_id
+      responses:
+        '204':
+          description: Successful deletion (no content)
+        '400':
+          description: Bad request
+        '404':
+          description: Capsule not found
+        '500':
+          description: Internal server error
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Bearer authentication header of the form Bearer `<API_KEY>`. API keys can be generated in the [dashboard](https://dashboard.sid.ai/).
+
+security:
+  - bearerAuth: []

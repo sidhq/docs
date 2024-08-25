@@ -5,13 +5,8 @@
     "dark": "/_img/logo/dark.svg",
     "light": "/_img/logo/light.svg"
   },
-  "api": {
-    "auth": {
-      "method": "bearer"
-    }
-  },
   "theme": "quill",
-  "openapi": ["/openapi.yml", "/openai-openapi.yml"],
+  "openapi": ["/openapi.yml", "/openai-openapi.yml", "/management-openapi.yml"],
   "favicon": "/_img/favicon-32x32.png",
   "feedback": {
     "thumbsRating": true,
@@ -48,10 +43,6 @@
     {
       "name": "API reference",
       "url": "api-reference"
-    },
-    {
-      "name": "Writing",
-      "url": "writing"
     }
   ],
   "anchors": [
@@ -125,15 +116,10 @@
       ]
     },
     {
-      "group": "2024",
+      "group": "MANAGEMENT",
       "pages": [
-        "writing/amdahl"
-      ]
-    },
-    {
-      "group": "2023",
-      "pages": [
-        "writing/ycombinator"
+        "api-reference/management/create-capsule",
+        "api-reference/management/delete-capsule"
       ]
     }
   ],
@@ -164,6 +150,14 @@
     {
       "source": "/api-reference/endpoint/example",
       "destination": "/api-reference/data/add-file-to-capsule"
+    },
+    {
+      "source": "/writing/ycombinator",
+      "destination": "https://www.sid.ai/blog/ycombinator"
+    },
+    {
+      "source": "/writing/amdahl",
+      "destination": "https://www.sid.ai/blog/amdahl"
     }
   ]
 }
