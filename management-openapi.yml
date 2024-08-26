@@ -31,15 +31,15 @@ paths:
               schema:
                 type: object
                 properties:
-                  name:
-                    type: string
-                    description: The name of the capsule. Identical to the name provided in the request body if request was successful.
                   id:
                     type: string
                     description: The unique ID of the capsule. Use this ID to make requests to the API. It should look something like `irrotational-airfoil`.
+                  message:
+                    type: string
+                    description: A nice message from the server.
                 required:
-                  - name
                   - id
+                  - message
         '400':
           description: Bad request
         '500':
