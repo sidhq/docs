@@ -47,10 +47,10 @@ paths:
     delete:
       summary: Delete a capsule
       parameters:
-        - name: capsule_id
+        - name: id
           in: path
           required: true
-          description: The ID of the capsule to delete
+          description: The ID of the capsule to delete. It should look something like `irrotational-airfoil`.
           schema:
             type: string
       responses:
