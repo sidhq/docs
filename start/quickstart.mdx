@@ -9,28 +9,58 @@ SID breaks down into two atomic units:
 ## Your first query
 We're going to create our first capsule later.
 First, let's query a capsule that already exists.
-Here's one that contains all of Wikipedia:
+The capsule `rocket-propelled-astroplex` contains Feynman's lectures on physics volume I.
+Here's how you can query it (no API key required):
 
 <CodeGroup>
 ```bash curl
-curl -X POST 'https://irrotational-airfoil.sid.ai/query' \
---header 'Content-Type: application/json' \
---body '{"query": "Who was John von Neumann?", "wishlist": {}, "limit": 3}' \
+curl -X POST 'https://rocket-propelled-astroplex.sid.ai/query' \
+-d '{"query": "what did einsteins special relativity introduce?"}' \
+```
+
+```python Python
+import requests
+
+url = 'https://rocket-propelled-astroplex.sid.ai/query'
+data = {
+    "query": "what did einsteins special relativity introduce?"
+}
+
+response = requests.post(url, json=data)
+
+print(response.json())
 ```
 </CodeGroup>
 Pretty neat! The response should look something like this:
 ```json
-{}
+[
+  {
+    "item_id": "aeb2052b-e60b-4bba-b02f-a599f2465787",
+    "idx": 140,
+    "content": "15\nThe Special Theory of Relativity\n15-1 The principle of relativity\nFor over 200 years the equations of motion enunciated by Newton were believed\nto describe nature correctly, and the first time that an error in these laws was\ndiscovered, the way to correct it was also discovered. Both the ...",
+    "uri": "",
+    "kind": "file",
+    "file_name": "the-feynman-lectures-on-physics-volume-i-mainly-mechanics-radiation-and-heat.pdf",
+    "file_type": "application/pdf",
+    "time_added": "2024-10-08T18:32:29.569418Z",
+    "time_authored": "2015-04-27T18:39:05Z",
+    "score": 0.99142253,
+    "metadata": {
+      "creator": "Matthew",
+      "time_created": "2013-05-04T08:54:12Z",
+      "time_modified": "2015-04-27T18:39:05Z"
+    }
+  }, ...
+]
 ```
-If you want to learn more about how a query works and what all the parameters mean – like `wishlist` and `limit`,
-please check out ...
-{/* TODO: add the right link */}
-<Note>`slow-winds-a1b2` is a public capsule, so no API key is required. If you want to query a private capsule, you'll need to create an API key in the dashboard.</Note>
+If you want to learn more about how a query works and what other parameters exist – like `wishlist` and `limit`,
+please check out the [API reference](/api-reference/query/query-capsule).
+<Note>`rocket-propelled-astroplex` is a public capsule, so no API key is required. If you want to query a private capsule, you'll need to create an API key in the dashboard.</Note>
 
 ## Your first capsule
 The easiest way to create a capsule is using the dashboard. 
 Please remember the ID of the capsule you created – you can always look it up in the dashboard.
-It will look something like this: `irrotational-airfoil`.
+It will look something like this: `rocket-propelled-astroplex`.
 <Steps>
 <Step title="Open the dashboard">
 Go to the [dashboard](https://dashboard.sid.ai).
