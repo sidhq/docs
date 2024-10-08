@@ -31,33 +31,29 @@ paths:
               schema:
                 type: object
                 properties:
-                  name:
-                    type: string
-                    description: The name of the capsule. Identical to the name provided in the request body if request was successful.
-                  capsule_id:
+                  id:
                     type: string
                     description: The unique ID of the capsule. Use this ID to make requests to the API. It should look something like `irrotational-airfoil`.
+                  message:
+                    type: string
+                    description: A nice message from the server.
                 required:
-                  - name
-                  - capsule_id
+                  - id
+                  - message
         '400':
           description: Bad request
         '500':
           description: Internal server error
-
+  /capsules/{id}:
     delete:
       summary: Delete a capsule
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                capsule_id:
-                  type: string
-              required:
-                - capsule_id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the capsule to delete. It should look something like `irrotational-airfoil`.
+          schema:
+            type: string
       responses:
         '204':
           description: Successful deletion (no content)
