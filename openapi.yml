@@ -12,6 +12,45 @@ servers:
         description: The ID of the capsule
 
 paths:
+  /data/{id}:
+    get:
+      summary: Get item by ID from capsule
+      tags:
+        - Data
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: The ID of the item to retrieve
+        - in: query
+          name: fullText
+          required: false
+          schema:
+            type: boolean
+            default: false
+          description: Whether to include the full text content of the item
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/ListItemResult'
+                  - type: object
+                    properties:
+                      full_text:
+                        type: string
+                        description: Full text content of the item (only included if fullText=true)
+        '400':
+          description: Bad request
+        '404':
+          description: Item not found
+        '500':
+          description: Internal server error
+
   /data/file:
     post:
       summary: Add file to capsule
