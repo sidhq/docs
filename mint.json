@@ -112,6 +112,7 @@
         "api-reference/data/add-file-to-capsule",
         "api-reference/data/add-text-to-capsule",
         "api-reference/data/list-data-in-capsule",
+        "api-reference/data/get-item-by-id-from-capsule",
         "api-reference/data/delete-file-by-id-from-capsule"
       ]
     },
